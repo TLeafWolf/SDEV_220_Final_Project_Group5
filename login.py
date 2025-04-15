@@ -1,9 +1,23 @@
+# this program opens a window display in vs code when it is ran as of right now
+
 import tkinter
+#imports message box for popups
+from tkinter import messagebox
+
 
 window = tkinter.Tk()
 window.title("login form")
 window.geometry('340x440')
 window.configure(bg = '#333333')
+
+# the def for logging in. will obviously need to repelace the stuff inside of it as right now it is a place holder account information
+def login():
+    username = "BobMax"
+    password = "12345"
+    if username_entry.get() == username and password_entry.get() == password:
+        messagebox.showinfo(title = "Login Success", message = "You successfully logged in.")
+    else:
+        messagebox.showinfo(title = "Error", message = "Invalid login.")
 
 # make the gui responsive to the screen. it allows it to change size and location based on the size of the screen and keeps it centered
 frame = tkinter.Frame(bg = '#333333')
@@ -20,7 +34,7 @@ username_label = tkinter.Label(frame, text = "Username", bg = '#333333', fg = "#
 username_entry = tkinter.Entry(frame, font =("Arial",16))
 password_entry = tkinter.Entry(frame, show ="*", font =("Arial",16))
 password_label = tkinter.Label(frame, text = "Password", bg = '#333333', fg = "#FFFFFF", font =("Arial",16))
-login_button = tkinter.Button(frame, text = "Login", bg = '#008000', fg = "#FFFFFF", font =("Arial",16))
+login_button = tkinter.Button(frame, text = "Login", bg = '#008000', fg = "#FFFFFF", font =("Arial",16), command = login)
 
 # placing them on the screen
 # row and colums is how w eplace it left to right and up and down
