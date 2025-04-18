@@ -10,12 +10,12 @@ root.geometry("1920x1080")
 bottomframe = tk.Frame(root)
 bottomframe.pack(expand = True)
 
-# Function to fetch low inventory items
+# Function to fetch low inventory items( put name of inventory dtatabse where inventory.db is)
 def fetch_low_inventory(threshold):
     conn = sqlite3.connect('inventory.db')  # Connect to your database
     cursor = conn.cursor()
     
-    # Query to select items with inventory below the threshold
+    # Query to select items with inventory below the threshold (put name of table where supply is)
     cursor.execute("SELECT name, quantity FROM Supply WHERE quantity < ?", (threshold,))
     low_inventory_items = cursor.fetchall()
     
