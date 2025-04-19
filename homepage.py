@@ -23,62 +23,50 @@ Frame_right.pack(side ="right",fill=tk.BOTH, expand=True)
 left_bottom= tk.Frame(bottom, bg="green")
 left_bottom.pack(side=tk.LEFT,fill=tk.BOTH, expand=True)
 
-Bottom_frame= tk.Frame(bottom)
-Bottom_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+Bottom_frame= tk.Frame(root)
+Bottom_frame.grid(row=1, column=1, sticky='n')
 
-class InventoryApp:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Inventory Alert System")
+# Function to fetch low inventory items
+def fetch_low_inventory(threshold):
+    conn = sqlite3.connect('inventory.db')  # Connect to your database
+    cursor = conn.cursor()
+    
+    # Query to select items with inventory below the threshold
+    cursor.execute("SELECT name, quantity FROM Supply WHERE quantity < ?", (threshold,))
+    low_inventory_items = cursor.fetchall()
+    
+    conn.close()
+    return low_inventory_items
+def display_low_inventory():
+    threshold = int(threshold_entry.get())
+    low_inventory_items = fetch_low_inventory(threshold)
+    
+    if low_inventory_items:
+        result_text = "Low Inventory Items:\n"
+        for item in low_inventory_items:
+            result_text += f"Item: {item[0]}, Quantity: {item[1]}\n"
+    else:
+        result_text = "No low inventory items found."
+    
+    result_label.config(text=result_text)
 
-        # Connect to the existing SQLite database
-        self.conn = sqlite3.connect('inventory.db')  # Change to your database name
-        self.cursor = self.conn.cursor()
+# Create and place the threshold input
+threshold_label = tk.Label(left_top, text="Enter Inventory Threshold:")
+threshold_label.grid(row =8, column =0)
 
-        self.alert_threshold = 30  # Threshold for alert
+threshold_entry = tk.Entry(left_top)
+threshold_entry.grid(row =9, column =0)
 
-        # Create a label for inventory alerts
-        self.label = tk.Label(left_top, text="", font=("Helvetica", 16))
-        self.label.grid(row=8, column=0, padx=20, pady=20)
 
-        # Create a button to refresh inventory (optional)
-        self.button = tk.Button(left_top, text="Refresh Inventory", command=self.check_inventory)
-        self.button.grid(row=9, column=0, padx=20, pady=10)
-
-        self.check_inventory()  # Start checking inventory
-
-    def check_inventory(self):
-        # Query the inventory from the database
-        self.cursor.execute("SELECT name, quantity FROM Supply")  # Adjust the table name if needed
-        items = self.cursor.fetchall()
-
-        low_inventory_count = sum(1 for item in items if item[1] < self.alert_threshold)
-
-        if low_inventory_count > 0:
-            self.label.config(text=f"Inventory Alert: {low_inventory_count} items low in stock!", fg="red")
-        else:
-            self.label.config(text="Inventory Level: Sufficient", fg="black")
-
-        # Check inventory again after 2000 milliseconds (2 seconds)
-        self.root.after(2000, self.check_inventory)
-
-    def simulate_inventory_change(self):
-        # Decrease inventory for testing
-        self.inventory_level -= 1
-        if self.inventory_level < 0:
-            self.inventory_level = 10  # Reset for demonstration
-
-    def __del__(self):
-        # Close the database connection when the app is closed
-        self.conn.close()
+result_label = tk.Label(left_top, text="")
+result_label.grid(row =10, column =0)
 
 
 logo = tk.Label(left_top, text="Logo", width=20, height=2,font =('Helvetica', 18), pady=16)
 logo.grid(row =0, column =0)
 
-
-#low_stock = tk.Button(left_top, text="Low Stock", width=20, height=1,font =('Helvetica', 18), bg = 'yellow', borderwidth=2, command=display_low_inventory)
-#low_stock.grid(row =5, column =0, pady=16)
+low_stock = tk.Button(left_top, text="Low Stock", width=20, height=2,font =('Helvetica', 18), bg = '#ffffff', command=display_low_inventory)
+low_stock.grid(row =7, column =0)
 
 Aisle = tk.Button(left_top, text="Aisle", width=20, height=1,font =('Helvetica', 18), bg = 'yellow', borderwidth=2)
 Aisle.grid(row =1, column =0, pady=16, padx = 16)
