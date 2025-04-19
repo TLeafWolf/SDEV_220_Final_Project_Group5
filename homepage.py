@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import sqlite3
 
+
 root = tk.Tk()
 root.title("Main")
 root.geometry("1920x1080")
@@ -79,7 +80,7 @@ Inventory_label = tk.Label(Frame_right, text="Inventory",font =('Helvetica', 28)
 Inventory_label.grid(row =1, column =1)
 
 
-data = tk.Label(Frame_right, text="Data placeholder",font =('Helvetica', 28), width=60, height=20, bg = '#aaaaaa')
+data = tk.Text(Frame_right, width=100, height=50, state=tk.DISABLED)
 data.grid(row =2, column =1)
 
 add= tk.Button(Bottom_frame, text="Add", width=20, height=2,font =('Helvetica', 18), bg = '#ffffff')
