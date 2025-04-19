@@ -35,7 +35,7 @@ class InventoryApp:
         self.conn = sqlite3.connect('inventory.db')  # Change to your database name
         self.cursor = self.conn.cursor()
 
-        self.alert_threshold = 30  # Threshold for alert
+        self.alert_threshold = 10  # Threshold for alert
 
         # Create a label for inventory alerts
         self.label = tk.Label(left_top, text="", font=("Helvetica", 16))
