@@ -5,7 +5,7 @@ import sqlite3
 
 root = tk.Tk()
 root.title("Main")
-root.geometry("1200x650")
+root.geometry("1200x850")
 
 top = tk.Frame(root)
 top.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
