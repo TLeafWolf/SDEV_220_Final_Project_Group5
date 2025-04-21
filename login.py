@@ -53,7 +53,7 @@ password = customtkinter.CTkEntry(master=bottomframe,
                                    show = "*")
 password.pack()
 
-class Users:
+class LogIn_Button:
     def button_event():
         cursor.execute("SELECT * from USERS")
         results = cursor.fetchall()

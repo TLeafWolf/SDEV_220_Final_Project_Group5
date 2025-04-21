@@ -9,7 +9,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS Supply
 
 cur.execute('''INSERT OR IGNORE INTO Supply VALUES
             ('Dog Food One','48.34', '24', 'A12')''')
-# added
+
 cur.execute('''INSERT OR IGNORE INTO Supply VALUES
             ('Dog Treat','8.99', '50', 'B10')''')
 
