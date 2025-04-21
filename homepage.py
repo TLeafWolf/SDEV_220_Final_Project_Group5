@@ -74,16 +74,19 @@ class InventoryApp:
 logo = tk.Label(left_top, text="Logo", width=20, height=2,font =('Helvetica', 18), pady=16)
 logo.grid(row =0, column =0)
 
-
+#for veiw section
+# aisle and bay are for veiwing section via aisle or aisle+bay to figure out which section of the store to veiw items in
 Aisle = tk.Button(left_top, text="Aisle", width=20, height=1,font =('Helvetica', 18), bg = 'yellow', borderwidth=2)
 Aisle.grid(row =1, column =0, pady=16, padx = 16)
 
 Bay = tk.Button(left_top, text="Bay", width=20, height=1,font =('Helvetica', 18), bg = 'yellow', borderwidth=2)
 Bay.grid(row =2, column =0, pady=16)
 
+# for search
 Searcha = tk.Button(left_top, text="Search", width=20, height=1,font =('Helvetica', 18), bg = 'yellow', borderwidth=2)
 Searcha.grid(row =3, column =0, pady=16)
 
+# for veiw all
 Veiw_all = tk.Button(left_top, text="Veiw all", width=20, height=1,font =('Helvetica', 18), bg = 'yellow', borderwidth=2)
 Veiw_all.grid(row =4, column =0, pady=16)
 
