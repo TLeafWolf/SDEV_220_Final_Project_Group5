@@ -33,16 +33,6 @@ app.geometry("960x540")
 bottomframe = tkinter.Frame(app)
 bottomframe.pack(expand = True)
 
-def button_event():
-    cursor.execute("SELECT * from USERS")
-    results = cursor.fetchall()
-    for result in results:
-        if user_name.get() == result[0] and password.get() == result[1]:
-            messagebox.showinfo(title = "Login Success", message = "You successfully logged in.")
-            break
-        else:
-            messagebox.showinfo(title = "Error", message = "Invalid login.")
-
 
 user_name = customtkinter.CTkEntry(master=bottomframe,
                                    placeholder_text="Username",
@@ -63,15 +53,25 @@ password = customtkinter.CTkEntry(master=bottomframe,
                                    show = "*")
 password.pack()
 
-button = customtkinter.CTkButton(master=bottomframe,
-                                 width =500,
-                                 height=100,
-                                 border_width=0,
-                                 corner_radius = 8,
-                                 text = "Log In",
-                                 font =('Helvetica', 28),
-                                 command = button_event)
-button.pack()
+class Users:
+    def button_event():
+        cursor.execute("SELECT * from USERS")
+        results = cursor.fetchall()
+        for result in results:
+            if user_name.get() == result[0] and password.get() == result[1]:
+                messagebox.showinfo(title = "Login Success", message = "You successfully logged in.")
+                break
+            else:
+                messagebox.showinfo(title = "Error", message = "Invalid login.")
+    button = customtkinter.CTkButton(master=bottomframe,
+                                    width =500,
+                                    height=100,
+                                    border_width=0,
+                                    corner_radius = 8,
+                                    text = "Log In",
+                                    font =('Helvetica', 28),
+                                    command = button_event)
+    button.pack()
 
 label = customtkinter.CTkLabel(master=bottomframe,
                                text ="",
