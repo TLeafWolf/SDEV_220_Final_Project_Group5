@@ -5,7 +5,18 @@ import sqlite3
 
 def open_view_page():
     subprocess.Popen(["python", "view.py"])
-    
+
+Veiw_all = tk.Button(
+    left_top, 
+    text="Veiw all", 
+    width=20, 
+    height=1, 
+    font=('Helvetica', 18), 
+    bg='yellow', 
+    borderwidth=2, 
+    command=open_view_page  # <-- This tells the button what to do when clicked
+)
+
 root = tk.Tk()
 root.title("Main")
 root.geometry("1200x850")
