@@ -33,19 +33,6 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Dog Food One</td>
-                <td>48.34</td>
-                <td>24</td>
-                <td>A12</td>
-                <td>
-                    <form action="{% url 'delete_item' item.id %}" method="POST" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit">Delete</button>
-                    </form>
-                    <a href="{% url 'update_item' item.id %}">Edit</a>  <!-- Link to edit the item -->
-                </td>
-            </tr>
             {% for item in items %}
                 <tr>
                     <td>{{ item.name }}</td>
