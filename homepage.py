@@ -1,8 +1,11 @@
 import tkinter as tk
 from tkinter import messagebox
+import subprocess
 import sqlite3
 
-
+def open_view_page():
+    subprocess.Popen(["python", "view.py"])
+    
 root = tk.Tk()
 root.title("Main")
 root.geometry("1200x850")
