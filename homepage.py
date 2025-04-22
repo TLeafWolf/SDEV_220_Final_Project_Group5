@@ -14,7 +14,7 @@ Veiw_all = tk.Button(
     font=('Helvetica', 18), 
     bg='yellow', 
     borderwidth=2, 
-    command=open_view_page  # <-- This tells the button what to do when clicked
+    command=open_view_page  
 )
 
 root = tk.Tk()
