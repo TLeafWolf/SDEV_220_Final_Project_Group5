@@ -8,7 +8,8 @@ Update functions = Teresa Newman (in progress)
 
 Storing data and/or creating database = Nguyen Ho (done by Teresa Newman)
 
-Login screen/ home page = Teresa Newman 
+Login screen = Teresa Newman
+home page = Teresa Newman (done)
 
 
 Changing appearance with CSS =  To be assigned 
