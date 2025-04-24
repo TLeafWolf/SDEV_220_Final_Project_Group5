@@ -12,7 +12,15 @@ Login screen = Teresa Newman
 
 home page = Teresa Newman (done)
 
-
 Changing appearance with CSS =  To be assigned 
+
+Log out  = To be assigned
+
+# Extra if we have time
+
+Check inventory/inventory alert  = To be assigned
+
+Add a logo  = To be assigned
+
 
 ![Chart](https://github.com/user-attachments/assets/fcd7a692-5f8a-4f6a-91fe-b2e40b421b8a)
