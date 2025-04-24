@@ -3,9 +3,11 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from .models import Supply 
 
 def index(request):
-    return render(request, 'index.html')
+    supplies = Supply.objects.all()  # Query all Supply objects
+    return render(request, 'index.html', {'supplies': supplies})  # Pass the supplies to the template
 
 def custom_login(request):
     if request.method == 'POST':

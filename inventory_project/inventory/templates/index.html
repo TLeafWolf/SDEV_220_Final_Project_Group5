@@ -12,5 +12,31 @@
     <p>This is the index page of your application.</p>
     <a href="{% url 'admin:index' %}">Go to Admin</a>
     <a href="{% url 'login' %}">Login</a>
+
+    <h2>Supplies</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supply in supplies %}
+            <tr>
+                <td>{{ supply.name }}</td>
+                <td>{{ supply.price }}</td>
+                <td>{{ supply.quantity }}</td>
+                <td>{{ supply.location }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No supplies available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
