@@ -2,8 +2,9 @@
 
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from .models import Supply
+from .forms import SupplyForm
 from django.contrib import messages
-from .models import Supply 
 
 def index(request):
     supplies = Supply.objects.all()  # Query all Supply objects
@@ -21,3 +22,14 @@ def custom_login(request):
             messages.error(request, 'Invalid username or password.')
     return render(request, 'login.html')
 
+def add_supply(request):
+    if request.method == 'POST':
+        form = SupplyForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the new supply to the database
+            messages.success(request, 'Supply added successfully!')
+            return redirect('index')  # Redirect to the index page after adding
+    else:
+        form = SupplyForm()  # Create a new form instance
+
+    return render(request, 'add_supply.html', {'form': form})  # Pass the form to the template
