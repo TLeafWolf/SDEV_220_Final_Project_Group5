@@ -41,14 +41,14 @@ def delete_supply(request, supply_name):
     return redirect('index')  
 
 def edit_supply(request, supply_name):
-    supply = get_object_or_404(Supply, name=supply_name)  # Fetch the existing supply by name
+    supply = get_object_or_404(Supply, name=supply_name)  
     if request.method == 'POST':
-        form = SupplyForm(request.POST, instance=supply)  # Bind the form to the existing supply
+        form = SupplyForm(request.POST, instance=supply) 
         if form.is_valid():
-            form.save()  # Save the updated supply
+            form.save() 
             messages.success(request, 'Supply updated successfully!')
-            return redirect('index')  # Redirect to the index page after updating
+            return redirect('index') 
     else:
-        form = SupplyForm(instance=supply)  # Create a form instance with the existing supply data
+        form = SupplyForm(instance=supply) 
 
-    return render(request, 'edit_supply.html', {'form': form})  # Pass the form to the template
+    return render(request, 'edit_supply.html', {'form': form}) 
