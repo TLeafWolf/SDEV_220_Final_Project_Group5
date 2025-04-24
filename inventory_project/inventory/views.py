@@ -1,7 +1,7 @@
 # inventory/views.py
 
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Supply
 from .forms import SupplyForm
 from django.contrib import messages
@@ -33,3 +33,9 @@ def add_supply(request):
         form = SupplyForm()  # Create a new form instance
 
     return render(request, 'add_supply.html', {'form': form})  # Pass the form to the template
+
+def delete_supply(request, supply_name):
+    supply = get_object_or_404(Supply, name=supply_name)  # Fetch the supply by name
+    supply.delete()  # Delete the supply from the database
+    messages.success(request, 'Supply deleted successfully!')
+    return redirect('index')  # Redirect to the index page after deletion
