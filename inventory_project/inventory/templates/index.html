@@ -1,5 +1,3 @@
-<!-- inventory/templates/index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +33,7 @@
                         {% csrf_token %}
                         <button type="submit">Delete</button>
                     </form>
+                    <a href="{% url 'edit_supply' supply.name %}">Edit</a>
                 </td>
             </tr>
             {% empty %}

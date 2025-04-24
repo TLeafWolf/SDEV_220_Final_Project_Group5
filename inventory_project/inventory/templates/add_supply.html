@@ -1,4 +1,4 @@
-<!-- inventory/templates/add_supply.html -->
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@
     <h1>Add New Supply</h1>
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}  <!-- Render the form fields -->
+        {{ form.as_p }} 
         <button type="submit">Add Supply</button>
     </form>
     <a href="{% url 'index' %}">Back to Home</a>
