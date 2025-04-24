@@ -4,7 +4,7 @@ View Functions = Maria
 
 Search function = Paul Kane 
 
-Update functions = Teresa Newman (in progress)
+Update functions = Teresa Newman (done)
 
 Storing data and/or creating database = Nguyen Ho (done by Teresa Newman)
 
