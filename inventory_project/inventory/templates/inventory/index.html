@@ -1,25 +1,72 @@
-<h1>Inventory List</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+</head>
+<body>
+    <h1>Welcome to the Inventory Management System</h1>
+    <a href="{% url 'admin:index' %}">Go to Admin</a>
+    <a href="{% url 'login' %}">Login</a>
+    
+    {% if low_stock_items %}
+    <div style="color: red;">
+        <strong>Warning:</strong> Some supplies are low in stock!
+    </div>
+{% else %}
+    <div style="color: green;">
+        All supplies are adequately stocked.
+    </div>
+{% endif %}
 
-<form method="get" style="margin-bottom: 1rem;">
-    <input type="text" name="name" placeholder="Filter by name..." value="{{ name_query }}">
-    <input type="text" name="location" placeholder="Filter by location..." value="{{ location_query }}">
-    <button type="submit">Filter</button>
+    <h2>Supplies</h2>
+    <form method="get" style="margin-bottom: 1rem;">
+        <input type="text" name="name" placeholder="Filter by name..." value="{{ name_query }}">
+        <input type="text" name="location" placeholder="Filter by location..." value="{{ location_query }}">
+        <button type="submit">Filter</button>
+    
+        {% if name_query or location_query %}
+            <a href="{% url 'index' %}"><button type="button">Reset</button></a>
+        {% endif %}
+    </form>
+    
+    <a href="{% url 'add_supply' %}">Add Supply</a>
+    
 
-    {% if name_query or location_query %}
-        <a href="{% url 'index' %}"><button type="button">Reset</button></a>
-    {% endif %}
-</form>
-
-<a href="{% url 'add_supply' %}">Add Supply</a>
-
-<ul>
-  {% for supply in supplies %}
-    <li>
-      {{ supply.name }} - ${{ supply.price }} - Qty: {{ supply.quantity }} - Location: {{ supply.location }}
-      <a href="{% url 'edit_supply' supply.name %}">Edit</a>
-      <a href="{% url 'delete_supply' supply.name %}">Delete</a>
-    </li>
-  {% empty %}
-    <li>No supplies found.</li>
-  {% endfor %}
-</ul>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Location</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supply in supplies %}
+            <tr>
+                <td>{{ supply.name }}</td>
+                <td>{{ supply.price }}</td>
+                <td>{{ supply.quantity }}</td>
+                <td>{{ supply.location }}</td>
+                <td>
+                    <form action="{% url 'delete_supply' supply.name %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                    <a href="{% url 'edit_supply' supply.name %}">Edit</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No supplies available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+    <a href="{% url 'low_stock_supplies' %}">View Low Stock Supplies</a>
+</body>
+</html>

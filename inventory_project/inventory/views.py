@@ -11,19 +11,38 @@ def index(request):
     location_query = request.GET.get('location', '')
     name_query = request.GET.get('name', '')
 
+    # Get all supplies
     supplies = Supply.objects.all()
 
+    # Filter supplies based on location and name queries
     if location_query:
         supplies = supplies.filter(location__icontains=location_query)
     if name_query:
         supplies = supplies.filter(name__icontains=name_query)
 
-    context = {
+    # Handle return functionality
+    if request.method == 'POST':
+        supply_name = request.POST.get('supply_name')
+        quantity_returned = int(request.POST.get('quantity', 0))
+        supply = get_object_or_404(Supply, name=supply_name)
+
+        if quantity_returned > 0:
+            supply.quantity += quantity_returned
+            supply.save()
+            messages.success(request, f'Supply {supply_name} returned successfully! New quantity: {supply.quantity}')
+        else:
+            messages.error(request, 'Invalid quantity returned. Please enter a positive number.')
+
+    # Check for low stock supplies based on the current stock levels
+    low_stock_items = Supply.objects.filter(quantity__lte=models.F('reorder_point'))
+
+    context = { 
         'supplies': supplies,
+        'low_stock_items': low_stock_items,
         'location_query': location_query,
         'name_query': name_query,
     }
-    return render(request, 'index.html', context)
+    return render(request, 'inventory/index.html', context)
 
 def low_stock_supplies(request):
     low_stock_items = Supply.objects.filter(quantity__lte=models.F('reorder_point'))
@@ -38,7 +57,7 @@ def custom_login(request):
             return redirect('index')
         else:
             messages.error(request, 'Invalid username or password.')
-    return render(request, 'login.html')
+    return render(request, 'inventory/login.html')
 
 def add_supply(request):
     if request.method == 'POST':
@@ -49,7 +68,7 @@ def add_supply(request):
             return redirect('index')
     else:
         form = SupplyForm()
-    return render(request, 'add_supply.html', {'form': form})
+    return render(request, 'inventory/add_supply.html', {'form': form})
 
 def delete_supply(request, supply_name):
     supply = get_object_or_404(Supply, name=supply_name)
@@ -67,5 +86,5 @@ def edit_supply(request, supply_name):
             return redirect('index')
     else:
         form = SupplyForm(instance=supply)
-    return render(request, 'edit_supply.html', {'form': form})
+    return render(request, 'inventory/edit_supply.html', {'form': form})
 
