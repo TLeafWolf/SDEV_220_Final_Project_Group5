@@ -1,9 +1,11 @@
 <h1>Inventory List</h1>
 
 <form method="get" style="margin-bottom: 1rem;">
-    <input type="text" name="location" placeholder="Filter by location..." value="{{ query }}">
+    <input type="text" name="name" placeholder="Filter by name..." value="{{ name_query }}">
+    <input type="text" name="location" placeholder="Filter by location..." value="{{ location_query }}">
     <button type="submit">Filter</button>
-    {% if query %}
+
+    {% if name_query or location_query %}
         <a href="{% url 'index' %}"><button type="button">Reset</button></a>
     {% endif %}
 </form>
