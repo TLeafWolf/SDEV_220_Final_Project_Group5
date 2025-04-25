@@ -1,0 +1,23 @@
+<h1>Inventory List</h1>
+
+<form method="get" style="margin-bottom: 1rem;">
+    <input type="text" name="location" placeholder="Filter by location..." value="{{ query }}">
+    <button type="submit">Filter</button>
+    {% if query %}
+        <a href="{% url 'index' %}"><button type="button">Reset</button></a>
+    {% endif %}
+</form>
+
+<a href="{% url 'add_supply' %}">Add Supply</a>
+
+<ul>
+  {% for supply in supplies %}
+    <li>
+      {{ supply.name }} - ${{ supply.price }} - Qty: {{ supply.quantity }} - Location: {{ supply.location }}
+      <a href="{% url 'edit_supply' supply.name %}">Edit</a>
+      <a href="{% url 'delete_supply' supply.name %}">Delete</a>
+    </li>
+  {% empty %}
+    <li>No supplies found.</li>
+  {% endfor %}
+</ul>
