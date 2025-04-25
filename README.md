@@ -14,7 +14,7 @@ home page = Teresa Newman (done)
 
 Changing appearance with CSS =  To be assigned 
 
-Log out  = To be assigned
+Log out  =  Nguyen Ho
 
 Check inventory/inventory alert  = Teresa Newman (Done)
 
