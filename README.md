@@ -12,7 +12,7 @@ Login screen = Teresa Newman (done)
 
 home page = Teresa Newman (done)
 
-Changing appearance with CSS =  To be assigned 
+Changing appearance with CSS =  Teresa Newman
 
 Log out  =  Nguyen Ho
 
