@@ -3,12 +3,47 @@
     display: flex;
     align-items: center; 
     color: white; 
-    padding: 20px;
+    padding: 10px;
     text-align: center; 
 }
 
 .header-container img {
-    max-width: 100px; 
+    width: 120px; 
     height: auto; 
     margin-right: 10px; 
 }
+.pet{
+    font-size: 50px;
+    padding:2px;
+}
+.head {
+    margin-right: auto; 
+    margin-left: 20px; 
+    
+
+}
+.data_tab  {
+    border-collapse: collapse;
+    width: 70%;
+    margin-right: auto; 
+    margin-left: auto; 
+}
+
+.data_tab th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+.data_tab tr:nth-child(even) {
+    background-color: Lightgreen;
+}
+
+.filter {
+    margin-left:60%; 
+
+}
+.warning{
+    margin-left:35%; 
+}
+
