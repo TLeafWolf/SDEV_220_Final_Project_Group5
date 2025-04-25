@@ -20,4 +20,4 @@ Check inventory/inventory alert  = Teresa Newman (Done)
 
 Add a logo  = To be assigned
 
-![Chart](https://github.com/user-attachments/assets/45af9a84-9048-4b92-8ba5-753cbc08e124)
+![Chart](https://github.com/user-attachments/assets/d7c749c6-79f9-478e-b21a-c0e5637cf0cf)
