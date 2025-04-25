@@ -20,15 +20,13 @@
 
     <nav>
         <a href="{% url 'login' %}">Login</a>
-        {% if user.is_authenticated %}
-            <a href="{% url 'export_supplies' %}">Export Supplies</a>
-            <a href="{% url 'import_supplies' %}">Import Supplies</a>
-        {% endif %}
+        
     </nav>
     
     {% if low_stock_items %}
     <div class = 'warning' style="color: red;">
         <strong>Warning:</strong> Some supplies are low in stock!
+        <a href="{% url 'low_stock_supplies' %}">View</a>
     </div>
 {% else %}
     <div style="color: green;">
@@ -37,7 +35,6 @@
 {% endif %}
 
     <div class = "filter">
-    <h2>Supplies</h2>
     
     <form method="get" style="margin-bottom: 1rem;" >
         <input type="text" name="name" placeholder="Filter by name..." value="{{ name_query }}">
@@ -101,6 +98,10 @@
         <strong>Please log in to add, edit, or delete supplies.</strong>
     </div>
 {% endif %}
-    <a href="{% url 'low_stock_supplies' %}">View Low Stock Supplies</a>
+    
+    {% if user.is_authenticated %}
+            <a href="{% url 'export_supplies' %}">Export</a>
+            <a href="{% url 'import_supplies' %}">Import</a>
+        {% endif %}
 </body>
 </html>
