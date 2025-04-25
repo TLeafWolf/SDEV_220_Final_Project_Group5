@@ -11,6 +11,17 @@
     <a href="{% url 'login' %}">Login</a>
     <a href="{% url 'add_supply' %}">Add Supply</a>
 
+    
+    {% if low_stock_items %}
+    <div style="color: red;">
+        <strong>Warning:</strong> Some supplies are low in stock!
+    </div>
+{% else %}
+    <div style="color: green;">
+        All supplies are adequately stocked.
+    </div>
+{% endif %}
+
     <h2>Supplies</h2>
     <table border="1">
         <thead>
@@ -45,5 +56,6 @@
         </tbody>
         
     </table>
+    <a href="{% url 'low_stock_supplies' %}">View Low Stock Supplies</a>
 </body>
 </html>

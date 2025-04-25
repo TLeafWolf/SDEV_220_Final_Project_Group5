@@ -5,6 +5,10 @@ class Supply(models.Model):
     price = models.FloatField()
     quantity = models.IntegerField()
     location = models.CharField(max_length=255)
+    reorder_point = models.PositiveIntegerField(default=5)
+    
+    def is_low_stock(self):
+        return self.quantity <= self.reorder_point
 
     def __str__(self):
         return self.name

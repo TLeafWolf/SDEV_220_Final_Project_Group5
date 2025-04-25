@@ -2,14 +2,19 @@
 
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db import models 
 from .models import Supply
 from .forms import SupplyForm
 from django.contrib import messages
 
 def index(request):
     supplies = Supply.objects.all()
-    return render(request, 'index.html', {'supplies': supplies})
+    low_stock_items = supplies.filter(quantity__lte=models.F('reorder_point'))  # Get low stock items
+    return render(request, 'index.html', {'supplies': supplies, 'low_stock_items': low_stock_items})
 
+def low_stock_supplies(request):
+    low_stock_items = Supply.objects.filter(quantity__lte=models.F('reorder_point'))
+    return render(request, 'inventory/low_stock.html', {'low_stock_items': low_stock_items})
 def custom_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
