@@ -1,14 +1,18 @@
 
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Supply</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Add New Supply</h1>
+    <div class="header-container">
+        <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo">
+        <h1>Add New Supply</h1>
+        </div>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }} 

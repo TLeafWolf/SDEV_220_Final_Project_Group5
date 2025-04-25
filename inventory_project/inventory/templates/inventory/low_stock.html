@@ -1,12 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Low Stock Supplies</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Low Stock Supplies</h1>
+    <div class="header-container">
+        <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo">
+        <h1>Low Stock Supplies</h1>
+        </div>
+    
     <table border="1">
         <thead>
             <tr>

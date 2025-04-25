@@ -1,8 +1,14 @@
 .header-container {
+    background-color: #4CAF50;
     display: flex;
-    align-items: center; /* Vertically center the items */
+    align-items: center; 
+    color: white; 
+    padding: 20px;
+    text-align: center; 
 }
 
 .header-container img {
-    margin-right: 10px; /* Space between logo and header */
+    max-width: 100px; 
+    height: auto; 
+    margin-right: 10px; 
 }
