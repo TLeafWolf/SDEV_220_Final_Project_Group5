@@ -8,7 +8,7 @@ Update functions = Teresa Newman (done)
 
 Storing data and/or creating database = Nguyen Ho (done by Teresa Newman)
 
-Login screen = Teresa Newman
+Login screen = Teresa Newman (done)
 
 home page = Teresa Newman (done)
 
