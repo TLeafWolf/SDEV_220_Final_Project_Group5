@@ -1,6 +1,6 @@
 # SDEV_220_Final_Project_Group5
 
-View Functions = Maria 
+Filter Functions = Maria 
 
 Search function = Paul Kane 
 
