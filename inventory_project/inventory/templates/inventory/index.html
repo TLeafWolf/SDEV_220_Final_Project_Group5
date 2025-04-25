@@ -95,12 +95,12 @@
         
     </table>
     {% if user.is_authenticated %}
-    <a href="{% url 'add_supply' %}"><button>Add Supply</button></a>
+    <a href="{% url 'add_supply' %}">Add Supply</a>
 {% else %}
     <div style="color: orange;">
         <strong>Please log in to add, edit, or delete supplies.</strong>
     </div>
 {% endif %}
-    <a href="{% url 'low_stock_supplies' %}"><button type="button">View Low Stock Supplies</button></a>
+    <a href="{% url 'low_stock_supplies' %}">View Low Stock Supplies</a>
 </body>
 </html>
