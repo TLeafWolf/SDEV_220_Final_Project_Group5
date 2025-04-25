@@ -8,9 +8,22 @@ from .forms import SupplyForm
 from django.contrib import messages
 
 def index(request):
+    location_query = request.GET.get('location', '')
+    name_query = request.GET.get('name', '')
+
     supplies = Supply.objects.all()
-    low_stock_items = supplies.filter(quantity__lte=models.F('reorder_point'))  # Get low stock items
-    return render(request, 'index.html', {'supplies': supplies, 'low_stock_items': low_stock_items})
+
+    if location_query:
+        supplies = supplies.filter(location__icontains=location_query)
+    if name_query:
+        supplies = supplies.filter(name__icontains=name_query)
+
+    context = {
+        'supplies': supplies,
+        'location_query': location_query,
+        'name_query': name_query,
+    }
+    return render(request, 'index.html', context)
 
 def low_stock_supplies(request):
     low_stock_items = Supply.objects.filter(quantity__lte=models.F('reorder_point'))
