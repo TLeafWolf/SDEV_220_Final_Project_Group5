@@ -1,12 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index Page</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+    <div class="header-container">
+    <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo">
     <h1>Welcome to the Inventory Management System</h1>
+    </div>
     <a href="{% url 'admin:index' %}">Go to Admin</a>
     <a href="{% url 'login' %}">Login</a>
     
@@ -52,12 +57,12 @@
                 <td>{{ supply.quantity }}</td>
                 <td>{{ supply.location }}</td>
                 <td>
-                    <form action="{% url 'delete_supply' supply.name %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit">Delete</button>
-                    </form>
                     <a href="{% url 'edit_supply' supply.name %}">Edit</a>
                 </td>
+                <td><form action="{% url 'delete_supply' supply.name %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form></td>
             </tr>
             {% empty %}
             <tr>
