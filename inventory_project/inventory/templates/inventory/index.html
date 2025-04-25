@@ -36,8 +36,14 @@
         {% endif %}
     </form>
     
+  
+    {% if user.is_authenticated %}
     <a href="{% url 'add_supply' %}">Add Supply</a>
-    
+{% else %}
+    <div style="color: orange;">
+        <strong>Please log in to add, edit, or delete supplies.</strong>
+    </div>
+{% endif %}
 
     <table border="1">
         <thead>
@@ -46,6 +52,7 @@
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Location</th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -57,12 +64,20 @@
                 <td>{{ supply.quantity }}</td>
                 <td>{{ supply.location }}</td>
                 <td>
-                    <a href="{% url 'edit_supply' supply.name %}">Edit</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'edit_supply' supply.name %}">Edit</a>
+                    {% else %}
+                        <span style="color: orange;">Login to edit</span>
+                    {% endif %}
                 </td>
-                <td><form action="{% url 'delete_supply' supply.name %}" method="post" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit">Delete</button>
-                </form></td>
+                <td>
+                    <form action="{% url 'delete_supply' supply.name %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        {% if user.is_authenticated %}
+                            <button type="submit">Delete</button>
+                        {% else %}
+                            <button type="button" disabled>Delete</button>
+                        {% endif %}
             </tr>
             {% empty %}
             <tr>

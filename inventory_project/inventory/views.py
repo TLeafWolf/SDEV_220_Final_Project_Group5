@@ -6,6 +6,7 @@ from django.db import models
 from .models import Supply
 from .forms import SupplyForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     location_query = request.GET.get('location', '')
@@ -59,6 +60,7 @@ def custom_login(request):
             messages.error(request, 'Invalid username or password.')
     return render(request, 'inventory/login.html')
 
+@login_required
 def add_supply(request):
     if request.method == 'POST':
         form = SupplyForm(request.POST)
@@ -70,12 +72,14 @@ def add_supply(request):
         form = SupplyForm()
     return render(request, 'inventory/add_supply.html', {'form': form})
 
+@login_required
 def delete_supply(request, supply_name):
     supply = get_object_or_404(Supply, name=supply_name)
     supply.delete()
     messages.success(request, 'Supply deleted successfully!')
     return redirect('index')
 
+@login_required
 def edit_supply(request, supply_name):
     supply = get_object_or_404(Supply, name=supply_name)
     if request.method == 'POST':
