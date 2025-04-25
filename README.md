@@ -18,6 +18,6 @@ Log out  =  Nguyen Ho
 
 Check inventory/inventory alert  = Teresa Newman (Done)
 
-Add a logo  = To be assigned
+Add a logo  = Teresa Newman (done)
 
 ![Chart](https://github.com/user-attachments/assets/d7c749c6-79f9-478e-b21a-c0e5637cf0cf)
