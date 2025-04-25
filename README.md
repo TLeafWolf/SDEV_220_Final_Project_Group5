@@ -14,11 +14,11 @@ home page = Teresa Newman (done)
 
 Changing appearance with CSS =  To be assigned 
 
-Log out  = To be assigned
+Log out  = Nguyen Ho
 
 # Extra if we have time
 
-Check inventory/inventory alert  = To be assigned
+Check inventory/inventory alert  = Nguyen Ho
 
 Add a logo  = To be assigned
 
