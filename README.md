@@ -16,7 +16,7 @@ Changing appearance with CSS =  To be assigned
 
 Log out  = To be assigned
 
-Check inventory/inventory alert  = To be assigned
+Check inventory/inventory alert  = Teresa Newman (Done)
 
 Add a logo  = To be assigned
 
