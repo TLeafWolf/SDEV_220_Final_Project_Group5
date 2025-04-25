@@ -7,6 +7,9 @@ from .models import Supply
 from .forms import SupplyForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import csv
+from django.http import HttpResponse
+from .forms import UploadFileForm
 
 def index(request):
     location_query = request.GET.get('location', '')
@@ -59,6 +62,29 @@ def custom_login(request):
         else:
             messages.error(request, 'Invalid username or password.')
     return render(request, 'inventory/login.html')
+
+def export_supplies(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="supplies.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['Name', 'Price', 'Quantity', 'Location'])  # Header row
+    for supply in Supply.objects.all():
+        writer.writerow([supply.name, supply.price, supply.quantity, supply.location])
+    return response
+
+def import_supplies(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            reader = csv.reader(file.read().decode('utf-8').splitlines())
+            next(reader)  # Skip header row
+            for row in reader:
+                Supply.objects.create(name=row[0], price=row[1], quantity=row[2], location=row[3])
+            return redirect('index')  # Redirect to the index page after import
+    else:
+        form = UploadFileForm()
+    return render(request, 'inventory/import_supplies.html', {'form': form})
 
 @login_required
 def add_supply(request):

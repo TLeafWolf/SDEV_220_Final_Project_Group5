@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Supplies</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="header-container">
+        <h1>Import Supplies</h1>
+    </div>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="file">Select a CSV file to upload:</label>
+            {{ form.file }}  <!-- This will render the file input field -->
+        </div>
+        <button type="submit">Upload</button>
+    </form>
+    
+    <a href="{% url 'index' %}">Back to Index</a>  <!-- Link to go back to the index page -->
+</body>
+</html>
