@@ -2,7 +2,7 @@
 
 Filter Functions = Maria (done)
 
-Search function = Paul Kane 
+Search function = Paul Kane
 
 Update functions = Teresa Newman (done)
 
@@ -14,10 +14,29 @@ home page = Teresa Newman (done)
 
 Changing appearance with CSS =  Teresa Newman
 
+Make the import page match the theme of the site(CSS) = Nguyen Ho
+
+Make the Low stock page fit the rest of the site(CSS) = Nguyen Ho
+
 Log out  =  Nguyen Ho
 
 Check inventory/inventory alert  = Teresa Newman (Done)
 
 Add a logo  = Teresa Newman (done)
+
+Audit Logs = Paul Kane (will review next week to see how this turns out)
+Description: Keep track of changes made to inventory items, including who made the changes and when.
+
+# Extra Your choice pick one Maria
+Categorization and Tagging
+  Description: Allow users to categorize or tag inventory items for better organization and easier searching.
+
+Purchase Orders
+Description: Implement a system for creating and managing purchase orders to restock inventory.
+
+
+
+# added note
+we need the search functions so we can incorporate the filter functions to work with it
 
 ![Chart](https://github.com/user-attachments/assets/d7c749c6-79f9-478e-b21a-c0e5637cf0cf)
