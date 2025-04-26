@@ -1,4 +1,5 @@
 # SDEV_220_Final_Project_Group5
+## incorporate  collections such as lists, tuples, arrays, and dictionaries. in our program somewhere =to be assigned
 
 Filter Functions = Maria (done)
 
