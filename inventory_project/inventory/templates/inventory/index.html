@@ -9,45 +9,58 @@
 </head>
 <body>
     <div class="header-container">
- 
+        <table class = "nav_tab">
+            <tr>
+                <td>
     <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo">
-    <center>
-    <div class = "head">
-        <center><p><div class = "pet">Pet Supplies</div><br>Inventory Management System</p></center>
-    </div>
-</center>
-    </div>
+</td>
 
-    <nav>
-        <a href="{% url 'login' %}">Login</a>
-        
-    </nav>
-    
-    {% if low_stock_items %}
+ <td class = "pet">
+    <div class = "head">
+        Pet Supplies
+        </div>
+    </td>
+
+<td class = "warn2">
+    <center>
+ Inventory Management System
+</center>
+</td>
+
+<td class = "login">
+    <a href="{% url 'login' %}"><button type="button">Login</button></a> 
+</td>  
+</tr>
+</table>
+</div>
+
+
+{% if low_stock_items %}
     <div class = 'warning' style="color: red;">
-        <strong>Warning:</strong> Some supplies are low in stock!
+        <center>
+        <strong><h1>Warning:</h1></strong> Some supplies are low in stock!
         <a href="{% url 'low_stock_supplies' %}">View</a>
+    
     </div>
+    <center>
 {% else %}
-    <div style="color: green;">
+    <div style="color: rgb(0, 0, 0);">
+        <center>
         All supplies are adequately stocked.
+    </center>
     </div>
 {% endif %}
 
     <div class = "filter">
-    
     <form method="get" style="margin-bottom: 1rem;" >
         <input type="text" name="name" placeholder="Filter by name..." value="{{ name_query }}">
-        <input type="text" name="location" placeholder="Filter by location..." value="{{ location_query }}">
+        <input type="text" name="location" placeholder="Filter by location..." value="{{ location_query }}"  style="width: 110px;" >
         <button type="submit">Filter</button>
     
         {% if name_query or location_query %}
             <a href="{% url 'index' %}"><button type="button">Reset</button></a>
         {% endif %}
     </form>
-    
-
-
 </div>
     <table border="1" class = "data_tab">
         <thead>
@@ -68,11 +81,13 @@
                 <td>{{ supply.quantity }}</td>
                 <td>{{ supply.location }}</td>
                 <td class = 'edit_button'>
+                    <center>
                     {% if user.is_authenticated %}
                         <a href="{% url 'edit_supply' supply.name %}"><button type="button">Edit</button></a>
                     {% else %}
                         <span style="color: orange;">Login to edit</span>
                     {% endif %}
+                </center>
                 </td>
                 <td class = 'Del_button'>
                     <form action="{% url 'delete_supply' supply.name %}" method="post" style="display:inline;">
@@ -91,17 +106,34 @@
         </tbody>
         
     </table>
+
+    <table class = "bottom_nav">
+        <tr>
+            <td>
     {% if user.is_authenticated %}
-    <a href="{% url 'add_supply' %}">Add</a>
+    <a href="{% url 'add_supply' %}">
+        <button type="button">Add</button>
+    </a>
 {% else %}
     <div style="color: orange;">
         <strong>Please log in to add, edit, or delete supplies.</strong>
     </div>
 {% endif %}
-    
+</td>
+<td class = "blank"></td>
+<td>
     {% if user.is_authenticated %}
-            <a href="{% url 'export_supplies' %}">Export</a>
-            <a href="{% url 'import_supplies' %}">Import</a>
-        {% endif %}
+    <a href="{% url 'export_supplies' %}">
+        <button type="button">Export</button>
+    </a>
+</td>
+<td>
+    <a href="{% url 'import_supplies' %}">
+        <button type="button">Import</button>
+    </a>
+{% endif %}
+    </td>
+    </tr>
+    </table>
 </body>
 </html>
