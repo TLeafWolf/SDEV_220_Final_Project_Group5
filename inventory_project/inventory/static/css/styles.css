@@ -51,9 +51,25 @@
     vertical-align: top;
 
 }
+.table-container {
+    max-height: 300px; /* Set the maximum height for the table */
+    overflow-y: auto; /* Enable vertical scrolling */
+    width: 70%; 
+    border: 1px solid #ccc; /* Optional: Add a border around the container */
+}
+.table-header {
+    background-color: #f1f1f1; /* Background color for the header */
+    position: sticky; /* Make the header sticky */
+    top: 0; /* Stick to the top */
+    z-index: 10; /* Ensure the header is above the body */
+}
+.table-body {
+    max-height: 250px; /* Set the maximum height for the body */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
 .data_tab {
     border-collapse: collapse;
-    width: 70%;
+    width: 100%; 
     margin-right: auto; 
     margin-left: auto; 
 }
@@ -76,3 +92,31 @@ td {
     margin-left:35%; 
 }
 
+.name_head{
+    width: 30%;
+}
+.name_row{
+    width: 30.5%;
+}
+.Price_head{
+    width: 10%;
+}
+.Price_row{
+    width: 10.25%;
+}
+
+.Quan_head{
+    width:20%;
+}
+.Quan_row{
+    width:20.5%;
+}
+.loc_row{
+    width:20.25%;
+}
+.loc_head{
+    width:19.75%;
+}
+.edit_head{
+    width:9.53%;
+}

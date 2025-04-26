@@ -62,78 +62,87 @@
         {% endif %}
     </form>
 </div>
-    <table border="1" class = "data_tab">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Location</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for supply in supplies %}
-            <tr>
-                <td>{{ supply.name }}</td>
-                <td>{{ supply.price }}</td>
-                <td>{{ supply.quantity }}</td>
-                <td>{{ supply.location }}</td>
-                <td class = 'edit_button'>
-                    <center>
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'edit_supply' supply.name %}"><button type="button">Edit</button></a>
-                    {% else %}
-                        <span style="color: orange;">Login to edit</span>
-                    {% endif %}
-                </center>
-                </td>
-                <td class = 'Del_button'>
-                    <form action="{% url 'delete_supply' supply.name %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        {% if user.is_authenticated %}
-                            <button type="submit">Delete</button>
-                        {% else %}
-                        <span style="color: orange;">Login to Delete</span>
-                        {% endif %}
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">No supplies available.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        
-    </table>
-
-    <table class = "bottom_nav">
-        <tr>
-            <td>
-    {% if user.is_authenticated %}
-    <a href="{% url 'add_supply' %}">
-        <button type="button">Add</button>
-    </a>
-{% else %}
-    <div style="color: orange;">
-        <strong>Please log in to add, edit, or delete supplies.</strong>
+<div class="table-container">
+    <div class="table-header">
+        <table border="1" class="data_tab">
+            <thead>
+                <tr>
+                    <th class="name_head">Name</th>
+                    <th class="Price_head">Price</th>
+                    <th class="Quan_head">Quantity</th>
+                    <th class="loc_head">Location</th>
+                    <th class="edit_head"></th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
     </div>
+    <div class="table-body">
+        <table border="1" class="data_tab">
+            <tbody>
+                {% for supply in supplies %}
+                <tr>
+                    <td class="name_row">{{ supply.name }}</td>
+                    <td class="Price_row">{{ supply.price }}</td>
+                    <td class="Quan_row">{{ supply.quantity }}</td>
+                    <td class="loc_row">{{ supply.location }}</td>
+                    <td class='edit_button'>
+                        <center>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'edit_supply' supply.name %}"><button type="button">Edit</button></a>
+                        {% else %}
+                            <span style="color: orange;">Login to edit</span>
+                        {% endif %}
+                        </center>
+                    </td>
+                    <td class='Del_button'>
+                        <form action="{% url 'delete_supply' supply.name %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            {% if user.is_authenticated %}
+                                <button type="submit">Delete</button>
+                            {% else %}
+                                <span style="color: orange;">Login to Delete</span>
+                            {% endif %}
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No supplies available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<table class = "bottom_nav">
+    <tr>
+        <td>
+{% if user.is_authenticated %}
+<a href="{% url 'add_supply' %}">
+    <button type="button">Add</button>
+</a>
+{% else %}
+<div style="color: orange;">
+    <strong>Please log in to add, edit, or delete supplies.</strong>
+</div>
 {% endif %}
 </td>
 <td class = "blank"></td>
 <td>
-    {% if user.is_authenticated %}
-    <a href="{% url 'export_supplies' %}">
-        <button type="button">Export</button>
-    </a>
+{% if user.is_authenticated %}
+<a href="{% url 'export_supplies' %}">
+    <button type="button">Export</button>
+</a>
 </td>
 <td>
-    <a href="{% url 'import_supplies' %}">
-        <button type="button">Import</button>
-    </a>
+<a href="{% url 'import_supplies' %}">
+    <button type="button">Import</button>
+</a>
 {% endif %}
-    </td>
-    </tr>
-    </table>
+</td>
+</tr>
+</table>
 </body>
 </html>
