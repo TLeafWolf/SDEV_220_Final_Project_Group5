@@ -9,9 +9,27 @@
 </head>
 <body>
     <div class="header-container">
-        <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo">
-        <h1>Edit Supply</h1>
+        <table class = "nav_tab">
+            <tr>
+                <td>
+    <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo">
+</td>
+
+ <td class = "pet">
+    <div class = "head">
+        Pet Supplies
         </div>
+    </td>
+
+<td class = "warn2">
+    Inventory Management System
+</td>
+<td class = "warn2">
+    Edit Item 
+</td>  
+</tr>
+</table>
+</div>
     
     <form method="post">
         {% csrf_token %}
