@@ -13,9 +13,9 @@ home page = Teresa Newman (done)
 
 Changing appearance with CSS =  Teresa Newman
 
-Make the import page match the theme of the site(CSS) = Nguyen Ho
+Make the import page match the theme of the site(CSS) = Nguyen Ho (done by Teresa Newman)
 
-Make the Low stock page fit the rest of the site(CSS) = Nguyen Ho
+Make the Low stock page fit the rest of the site(CSS) = Nguyen Ho (done by Teresa Newman)
 
 Log out  =  Nguyen Ho
 
@@ -34,8 +34,5 @@ Purchase Orders
 Description: Implement a system for creating and managing purchase orders to restock inventory.
 
 
-
-# added note
-we need the search functions so we can incorporate the filter functions to work with it
 
 ![Chart](https://github.com/user-attachments/assets/d7c749c6-79f9-478e-b21a-c0e5637cf0cf)
