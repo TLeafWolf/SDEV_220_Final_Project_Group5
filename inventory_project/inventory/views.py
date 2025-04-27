@@ -14,10 +14,13 @@ from .forms import UploadFileForm
 def index(request):
     location_query = request.GET.get('location', '')
     name_query = request.GET.get('name', '')
+    low_stock = request.GET.get('low_stock', False)
 
     # Get all supplies
     supplies = Supply.objects.all()
 
+    if low_stock:
+        supplies = supplies.filter(quantity__lt=6)
     # Filter supplies based on location and name queries
     if location_query:
         supplies = supplies.filter(location__icontains=location_query)
@@ -39,12 +42,14 @@ def index(request):
 
     # Check for low stock supplies based on the current stock levels
     low_stock_items = Supply.objects.filter(quantity__lte=models.F('reorder_point'))
+    low_stock_items_exist = low_stock_items.exists() 
 
     context = { 
         'supplies': supplies,
         'low_stock_items': low_stock_items,
         'location_query': location_query,
         'name_query': name_query,
+        'low_stock_items_exist': low_stock_items_exist,
     }
     return render(request, 'inventory/index.html', context)
 
