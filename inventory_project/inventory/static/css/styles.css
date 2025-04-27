@@ -1,3 +1,5 @@
+
+
 .header-container {
     background-color: #4CAF50;
     align-items: center;
@@ -52,20 +54,20 @@
 
 }
 .table-container {
-    max-height: 300px; /* Set the maximum height for the table */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 300px; 
+    overflow-y: auto; 
     width: 70%; 
-    border: 1px solid #ccc; /* Optional: Add a border around the container */
+    border: 1px solid #ccc;
 }
 .table-header {
-    background-color: #f1f1f1; /* Background color for the header */
-    position: sticky; /* Make the header sticky */
-    top: 0; /* Stick to the top */
-    z-index: 10; /* Ensure the header is above the body */
+    background-color: #f1f1f1; 
+    position: sticky; 
+    top: 0;
+    z-index: 10; 
 }
 .table-body {
-    max-height: 250px; /* Set the maximum height for the body */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 250px; 
+    overflow-y: auto; 
 }
 .data_tab {
     border-collapse: collapse;
@@ -120,3 +122,4 @@ td {
 .edit_head{
     width:9.53%;
 }
+
