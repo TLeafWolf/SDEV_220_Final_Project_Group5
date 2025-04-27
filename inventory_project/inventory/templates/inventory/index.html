@@ -81,7 +81,7 @@
         <table border="1" class="data_tab">
             <tbody>
                 {% for supply in supplies %}
-                <tr>
+                <tr {% if supply.quantity < 6 %}style="background-color: #ffcccc;"{% endif %}>
                     <td class="name_row">{{ supply.name }}</td>
                     <td class="Price_row">${{ supply.price|floatformat:2 }}</td>
                     <td class="Quan_row">{{ supply.quantity }}</td>
