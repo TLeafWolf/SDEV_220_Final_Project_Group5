@@ -83,7 +83,7 @@
                 {% for supply in supplies %}
                 <tr>
                     <td class="name_row">{{ supply.name }}</td>
-                    <td class="Price_row">{{ supply.price }}</td>
+                    <td class="Price_row">${{ supply.price|floatformat:2 }}</td>
                     <td class="Quan_row">{{ supply.quantity }}</td>
                     <td class="loc_row">{{ supply.location }}</td>
                     <td class='edit_button'>

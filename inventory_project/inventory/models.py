@@ -11,5 +11,6 @@ class Supply(models.Model):
         return self.quantity <= self.reorder_point
 
     def __str__(self):
-        return self.name
+        formatted_price = f"{self.price:.2f}"
+        return f"{self.name} (${formatted_price})"
 
