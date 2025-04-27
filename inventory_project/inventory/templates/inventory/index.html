@@ -55,9 +55,8 @@
             <input type="text" name="name" placeholder="Filter by name..." value="{{ name_query }}">
             <input type="text" name="location" placeholder="Filter by location..." value="{{ location_query }}" style="width: 110px;">
             <button type="submit">Filter</button>
-            {% if name_query or location_query or low_stock %}
-                <a href="{% url 'index' %}"><button type="button">Reset</button></a>
-            {% endif %}
+            <a href="{% url 'index' %}"><button type="button">Reset</button></a>
+ 
         </form>
     </div>
 
