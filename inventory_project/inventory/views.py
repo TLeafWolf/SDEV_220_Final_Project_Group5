@@ -1,9 +1,7 @@
-# inventory/views.py
-
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db import models 
-from .models import Supply
+from django.db import models
+from .models import Supply, AuditLog  # Make sure to import AuditLog
 from .forms import SupplyForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -56,6 +54,7 @@ def index(request):
 def low_stock_supplies(request):
     low_stock_items = Supply.objects.filter(quantity__lte=models.F('reorder_point'))
     return render(request, 'inventory/low_stock.html', {'low_stock_items': low_stock_items})
+
 def custom_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -96,8 +95,16 @@ def add_supply(request):
     if request.method == 'POST':
         form = SupplyForm(request.POST)
         if form.is_valid():
-            form.save()
+            supply = form.save()
+            # Create an audit log for the creation
+            AuditLog.objects.create(
+                user=request.user,
+                action='CREATE',
+                supply=supply,
+                changes=f'Created supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
+            )
             messages.success(request, 'Supply added successfully!')
+            return redirect('index')  # Redirect to the index page after adding
     else:
         form = SupplyForm()
     return render(request, 'inventory/add_supply.html', {'form': form})
@@ -105,6 +112,15 @@ def add_supply(request):
 @login_required
 def delete_supply(request, supply_name):
     supply = get_object_or_404(Supply, name=supply_name)
+    
+    # Create an audit log for the deletion
+    AuditLog.objects.create(
+        user=request.user,
+        action='DELETE',
+        supply=supply,
+        changes=f'Deleted supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
+    )
+    
     supply.delete()
     messages.success(request, 'Supply deleted successfully!')
     return redirect('index')
@@ -115,9 +131,20 @@ def edit_supply(request, supply_name):
     if request.method == 'POST':
         form = SupplyForm(request.POST, instance=supply)
         if form.is_valid():
-            form.save()
+            # Capture the old data before saving the form
+            old_data = f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
+            supply = form.save()
+            new_data = f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
+
+            # Create an audit log for the update
+            AuditLog.objects.create(
+                user=request.user,
+                action='UPDATE',
+                supply=supply,
+                changes=f'Updated supply: From {old_data} to {new_data}'
+            )
             messages.success(request, 'Supply updated successfully!')
+            return redirect('index')
     else:
         form = SupplyForm(instance=supply)
     return render(request, 'inventory/edit_supply.html', {'form': form})
-
