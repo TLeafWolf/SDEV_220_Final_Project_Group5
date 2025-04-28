@@ -166,6 +166,7 @@ def update_supply(request, supply_name):
     if request.method == 'POST':
         data = json.loads(request.body)
         price = data.get('price')
+        quantity = data.get('quantity')
         location = data.get('location')
 
         # Get the supply object by name
@@ -175,6 +176,9 @@ def update_supply(request, supply_name):
         if price is not None and price != str(supply.price):
             changes.append(f"Price changed from ${supply.price} to ${price}")
             supply.price = price
+        if quantity is not None and quantity != str(supply.quantity):
+            changes.append(f"Quantity changed from {supply.quantity} to {quantity}")
+            supply.quantity = quantity  # Update the quantity
         if location is not None and location != supply.location:
             changes.append(f"Location changed from '{supply.location}' to '{location}'")
             supply.location = location

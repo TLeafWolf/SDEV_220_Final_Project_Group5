@@ -110,7 +110,11 @@
                         <span class="display">{{ supply.price|floatformat:2 }}</span>
                         <input type="text" class="edit" value="{{ supply.price|floatformat:2 }}" style="display:none;" onblur="saveField(this, 'price', '{{ supply.name }}')">
                     </td>
-                    <td class="Quan_row">{{ supply.quantity }}</td>
+                    <td class="Quan_row" onclick="editField(this, 'quantity', '{{ supply.name }}')">
+                        <span class="display">{{ supply.quantity }}</span>
+                        <input type="text" class="edit" value="{{ supply.quantity }}" style="display:none;" onblur="saveField(this, 'quantity', '{{ supply.name }}')">
+                    </td>
+                    
                     <td class="loc_row" onclick="editField(this, 'location', '{{ supply.name }}')">
                         <span class="display">{{ supply.location }}</span>
                         <input type="text" class="edit" value="{{ supply.location }}" style="display:none;" onblur="saveField(this, 'location', '{{ supply.name }}')">
