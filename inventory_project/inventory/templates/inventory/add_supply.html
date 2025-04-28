@@ -53,14 +53,9 @@
         .header_log{
             color:black;
         }
-        .login-header {
-            background-color: #F6DE60; 
-            color: #4CAF50; 
-            padding: 10px; 
-            text-align: center;
+        .login-image{
             width: 385px;
-            height: 80px;
-            border-radius: 5px; 
+            height: 100px;
             margin-bottom: 20px;
         }
     </style>
@@ -93,7 +88,7 @@
 </div>
 <div class="form-container">
     <div class="login-form">
-    <div class="login-header"><center><h2 class = "header_log">Add Item</h2></center></div>
+    <div class="login-header"><center><img src="{% static 'icons\BannerY.jpg' %}" alt="T Leaf Logo" class ="login-image"></center></div>
     <center>
     <form method="POST">
         {% csrf_token %}

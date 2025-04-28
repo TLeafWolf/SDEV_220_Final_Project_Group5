@@ -27,7 +27,9 @@
             margin: 0;
             padding: 0;
         }
-
+        .changes{
+            width: 286px;
+        }
 
     </style>
 </head>
@@ -77,7 +79,7 @@
             <td>{{ log.get_action_display }}</td>
             <td>{{ log.user.username }}</td>
             <td>{{ log.supply.name }}</td>
-            <td>{{ log.changes }}</td>
+            <td class = "changes">{{ log.changes }}</td>
             <td>{{ log.timestamp }}</td>
         </tr>
         {% endfor %}
