@@ -64,7 +64,7 @@
     
     <div class="table-container">
     <table border="1" class="data_tab">
-        <div class="table-header">
+    
         <tr>
             <th>Action</th>
             <th>User</th>
@@ -72,8 +72,7 @@
             <th>Changes</th>
             <th>Timestamp</th>
         </tr>
-    </div>
-    <div class="table-body">
+    
         {% for log in logs %}
         <tr>
             <td>{{ log.get_action_display }}</td>
@@ -84,7 +83,6 @@
         </tr>
         {% endfor %}
     </table>
-    </div>
 </div>
 </center>
 </body>

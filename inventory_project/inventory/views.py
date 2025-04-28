@@ -164,7 +164,6 @@ def edit_supply(request, supply_name):
 @csrf_exempt  # Use this decorator to allow POST requests without CSRF token validation
 def update_supply(request, supply_name):
     if request.method == 'POST':
-        # Load the JSON data from the request body
         data = json.loads(request.body)
         price = data.get('price')
         location = data.get('location')
@@ -172,17 +171,26 @@ def update_supply(request, supply_name):
         # Get the supply object by name
         supply = get_object_or_404(Supply, name=supply_name)
 
-        # Update the supply's price and location if provided
-        if price is not None:
+        changes = []
+        if price is not None and price != str(supply.price):
+            changes.append(f"Price changed from ${supply.price} to ${price}")
             supply.price = price
-        if location is not None:
+        if location is not None and location != supply.location:
+            changes.append(f"Location changed from '{supply.location}' to '{location}'")
             supply.location = location
 
         # Save the changes to the database
         supply.save()
 
-        # Return a JSON response indicating success
+        # Log the changes in the audit log
+        if changes:
+            AuditLog.objects.create(
+                action='update',
+                user=request.user,  # Assuming the user is authenticated
+                supply=supply,
+                changes='; '.join(changes)
+            )
+
         return JsonResponse({'status': 'success', 'message': 'Supply updated successfully.'})
 
-    # If the request method is not POST, return an error
     return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=400)
