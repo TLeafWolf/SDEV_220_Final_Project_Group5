@@ -98,7 +98,7 @@ td {
 }
 
 .name_head{
-    width: 160px;
+    width: 162px;
 }
 .name_row{
     width: 160px;
@@ -111,7 +111,7 @@ td {
 }
 
 .Quan_head{
-    width:114px;
+    width:115px;
 }
 .Quan_row{
     width:120px;
@@ -120,10 +120,10 @@ td {
     width:120px;
 }
 .loc_head{
-    width:116px;
+    width:119px;
 }
 .edit_head{
-    width:102px;
+    width:103px;
 }
 
 .edit_button{
@@ -134,5 +134,5 @@ td {
 }
 
 .del_head{
-    width:81px;
+    width:77px;
 }

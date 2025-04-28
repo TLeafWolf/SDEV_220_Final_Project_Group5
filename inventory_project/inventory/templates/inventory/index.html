@@ -71,7 +71,17 @@
                     <th class="Quan_head">Quantity</th>
                     <th class="loc_head">Location</th>
                     <th class="edit_head"></th>
-                    <th class="del_head"></th>
+                   <th class="del_head">
+                    <center>{% if user.is_authenticated %}
+                        <a href="{% url 'add_supply' %}">
+                            <button type="button">Add</button>
+                        </a>
+                        {% else %}
+                        <div style="color: orange;">
+                            <strong>Please log in to add, edit, or delete supplies.</strong>
+                        </div>
+                        {% endif %}</center> 
+                    </th>
                 </tr>
             </thead>
         </table>
@@ -124,15 +134,7 @@
 <table class = "bottom_nav">
     <tr>
         <td>
-{% if user.is_authenticated %}
-<a href="{% url 'add_supply' %}">
-    <button type="button">Add</button>
-</a>
-{% else %}
-<div style="color: orange;">
-    <strong>Please log in to add, edit, or delete supplies.</strong>
-</div>
-{% endif %}
+
 </td>
 <td class = "blank"><a href="{% url 'audit_log' %}"><button type="button">Audit Log</button></a> </td>
 <td class = "export">
