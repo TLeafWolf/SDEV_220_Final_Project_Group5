@@ -90,6 +90,11 @@ def import_supplies(request):
         form = UploadFileForm()
     return render(request, 'inventory/import_supplies.html', {'form': form})
 
+def audit_log(request):
+    # Get logs, ordered by the latest timestamp
+    logs = AuditLog.objects.all().order_by('-timestamp')
+    return render(request, 'inventory/audit_log.html', {'logs': logs})
+
 @login_required
 def add_supply(request):
     if request.method == 'POST':
