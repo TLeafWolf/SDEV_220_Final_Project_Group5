@@ -13,5 +13,6 @@ urlpatterns = [
     path('edit-supply/<str:supply_name>/', views.edit_supply, name='edit_supply'),  # Edit supply
     path('export/', views.export_supplies, name='export_supplies'),  # Export supplies
     path('import/', views.import_supplies, name='import_supplies'),  # Import supplies
+    path('update_supply/<str:supply_name>/', views.update_supply, name='update_supply'),
     
 ]

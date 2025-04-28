@@ -6,8 +6,13 @@ from .forms import SupplyForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import csv
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .forms import UploadFileForm
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+
+
 
 def index(request):
     location_query = request.GET.get('location', '')
@@ -154,3 +159,30 @@ def edit_supply(request, supply_name):
     else:
         form = SupplyForm(instance=supply)
     return render(request, 'inventory/edit_supply.html', {'form': form})
+
+
+@csrf_exempt  # Use this decorator to allow POST requests without CSRF token validation
+def update_supply(request, supply_name):
+    if request.method == 'POST':
+        # Load the JSON data from the request body
+        data = json.loads(request.body)
+        price = data.get('price')
+        location = data.get('location')
+
+        # Get the supply object by name
+        supply = get_object_or_404(Supply, name=supply_name)
+
+        # Update the supply's price and location if provided
+        if price is not None:
+            supply.price = price
+        if location is not None:
+            supply.location = location
+
+        # Save the changes to the database
+        supply.save()
+
+        # Return a JSON response indicating success
+        return JsonResponse({'status': 'success', 'message': 'Supply updated successfully.'})
+
+    # If the request method is not POST, return an error
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=400)
