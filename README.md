@@ -42,7 +42,7 @@ Python to edit the database from within the code = Nguyen
 Audit Logs = Maria
 Description: Keep track of changes made to inventory items, including who made the changes and when.
 
-# Extra Your choice pick one Maria
+# Extra Your choice pick one
 Categorization and Tagging
   Description: Allow users to categorize or tag inventory items for better organization and easier searching.
 
