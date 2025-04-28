@@ -5,7 +5,7 @@ Log out  = Nguyen
 
 Python to edit the database from within the code = Nguyen
 
-Audit Logs = Maria
+Audit Logs = Maria (done)
 
 add and edit list display = Paul
 
@@ -39,7 +39,7 @@ add and edit list display = Paul
 
 Python to edit the database from within the code = Nguyen
 
-Audit Logs = Maria
+Audit Logs = Maria (done)
 Description: Keep track of changes made to inventory items, including who made the changes and when.
 
 # Extra Your choice pick one
