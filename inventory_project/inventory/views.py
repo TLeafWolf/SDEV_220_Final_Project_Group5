@@ -113,15 +113,15 @@ def add_supply(request):
 @login_required
 def delete_supply(request, supply_name):
     supply = get_object_or_404(Supply, name=supply_name)
-    
-    # Create an audit log for the deletion
+
+    # Create an audit log entry for the deletion
     AuditLog.objects.create(
-        user=request.user,
-        action='DELETE',
-        supply=supply,
-        changes=f'Deleted supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
+        user=request.user,  # User who made the change
+        action='DELETE',  # Action type
+        supply=supply,  # The supply that was deleted
+        changes=f'Deleted supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'  # Description of the changes
     )
-    
+
     supply.delete()
     messages.success(request, 'Supply deleted successfully!')
     return redirect('index')
@@ -132,17 +132,17 @@ def edit_supply(request, supply_name):
     if request.method == 'POST':
         form = SupplyForm(request.POST, instance=supply)
         if form.is_valid():
-            # Capture the old data before saving the form
+            # Capture the old data before saving
             old_data = f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
             supply = form.save()
             new_data = f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
 
-            # Create an audit log for the update
+            # Create an audit log entry for the update
             AuditLog.objects.create(
-                user=request.user,
-                action='UPDATE',
-                supply=supply,
-                changes=f'Updated supply: From {old_data} to {new_data}'
+                user=request.user,  # User who made the change
+                action='UPDATE',  # Action type
+                supply=supply,  # The supply that was updated
+                changes=f'Updated supply: From {old_data} to {new_data}'  # Description of what was changed
             )
             messages.success(request, 'Supply updated successfully!')
             return redirect('index')
