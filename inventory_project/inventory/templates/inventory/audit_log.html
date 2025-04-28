@@ -1,8 +1,68 @@
-{% extends 'base_generic.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Supply</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
 
-{% block content %}
+        body {
+            margin: 0; 
+            background-color: #f0f0f0; 
+        }
+
+ 
+        .header-container {
+            background-color: #4CAF50;
+            color: white; 
+            padding: 10px;
+            text-align: center; 
+        }
+
+
+        .nav_tab {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <table class = "nav_tab">
+            <tr>
+                <td>
+    <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo">
+</td>
+
+ <td class = "pet">
+    <div class = "head">
+        Pet Supplies
+        </div>
+    </td>
+
+<td class = "warn2">
+    Inventory Management System
+</td>
+<td class = "warn2">
+    <a href="{% url 'index' %}">
+        <button type="submit">Back
+        </button>
+        </a>
+</td>  
+</tr>
+</table>
+</div>
+<center>
     <h2>Audit Log</h2>
-    <table>
+    
+    <div class="table-container">
+    <table border="1" class="data_tab">
+        <div class="table-header">
         <tr>
             <th>Action</th>
             <th>User</th>
@@ -10,6 +70,8 @@
             <th>Changes</th>
             <th>Timestamp</th>
         </tr>
+    </div>
+    <div class="table-body">
         {% for log in logs %}
         <tr>
             <td>{{ log.get_action_display }}</td>
@@ -20,4 +82,8 @@
         </tr>
         {% endfor %}
     </table>
-{% endblock %}
+    </div>
+</div>
+</center>
+</body>
+</html>

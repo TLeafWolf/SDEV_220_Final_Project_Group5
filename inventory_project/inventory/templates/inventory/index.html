@@ -134,7 +134,7 @@
 </div>
 {% endif %}
 </td>
-<td class = "blank"></td>
+<td class = "blank"><a href="{% url 'audit_log' %}"><button type="button">Audit Log</button></a> </td>
 <td class = "export">
 {% if user.is_authenticated %}
 <a href="{% url 'export_supplies' %}">
@@ -149,5 +149,7 @@
 </td>
 </tr>
 </table>
+
+
 </body>
 </html>
