@@ -49,7 +49,7 @@
             color:#F6DE60;
             margin:10px;
         }
-        .user input{
+        .inputuser{
             color:black;
             margin:10px;
         }
@@ -87,10 +87,10 @@
            <center><form method="POST">
                 {% csrf_token %}
                 <label for="username" class = "user">Username:</label>
-                <input type="text" name="username" required class = "user">
+                <input type="text" name="username" required class = "inputuser">
                 <br>
                 <label for="password" class = "user">Password:</label>
-                <input type="password" name="password" required class = "user">
+                <input type="password" name="password" required class = "inputuser">
                 <br>
                <center><button type="submit">Login</button></center> 
             </form>
