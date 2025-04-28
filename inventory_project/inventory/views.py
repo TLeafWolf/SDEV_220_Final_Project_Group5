@@ -19,18 +19,18 @@ def index(request):
     name_query = request.GET.get('name', '')
     low_stock = request.GET.get('low_stock', False)
 
-    # Get all supplies
+
     supplies = Supply.objects.all()
 
     if low_stock:
         supplies = supplies.filter(quantity__lt=6)
-    # Filter supplies based on location and name queries
+
     if location_query:
         supplies = supplies.filter(location__icontains=location_query)
     if name_query:
         supplies = supplies.filter(name__icontains=name_query)
 
-    # Handle return functionality
+ 
     if request.method == 'POST':
         supply_name = request.POST.get('supply_name')
         quantity_returned = int(request.POST.get('quantity', 0))
@@ -43,7 +43,7 @@ def index(request):
         else:
             messages.error(request, 'Invalid quantity returned. Please enter a positive number.')
 
-    # Check for low stock supplies based on the current stock levels
+    
     low_stock_items = Supply.objects.filter(quantity__lte=models.F('reorder_point'))
     low_stock_items_exist = low_stock_items.exists() 
 
@@ -87,16 +87,15 @@ def import_supplies(request):
         if form.is_valid():
             file = request.FILES['file']
             reader = csv.reader(file.read().decode('utf-8').splitlines())
-            next(reader)  # Skip header row
+            next(reader)  
             for row in reader:
                 Supply.objects.create(name=row[0], price=row[1], quantity=row[2], location=row[3])
-            return redirect('index')  # Redirect to the index page after import
+            return redirect('index') 
     else:
         form = UploadFileForm()
     return render(request, 'inventory/import_supplies.html', {'form': form})
 
 def audit_log(request):
-    # Get logs, ordered by the latest timestamp
     logs = AuditLog.objects.all().order_by('-timestamp')
     return render(request, 'inventory/audit_log.html', {'logs': logs})
 
@@ -142,7 +141,7 @@ def edit_supply(request, supply_name):
     if request.method == 'POST':
         form = SupplyForm(request.POST, instance=supply)
         if form.is_valid():
-            # Capture the old data before saving
+    
             old_data = f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
             supply = form.save()
             new_data = f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
@@ -161,7 +160,7 @@ def edit_supply(request, supply_name):
     return render(request, 'inventory/edit_supply.html', {'form': form})
 
 
-@csrf_exempt  # Use this decorator to allow POST requests without CSRF token validation
+@csrf_exempt 
 def update_supply(request, supply_name):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -169,7 +168,7 @@ def update_supply(request, supply_name):
         quantity = data.get('quantity')
         location = data.get('location')
 
-        # Get the supply object by name
+        
         supply = get_object_or_404(Supply, name=supply_name)
 
         changes = []
@@ -178,19 +177,19 @@ def update_supply(request, supply_name):
             supply.price = price
         if quantity is not None and quantity != str(supply.quantity):
             changes.append(f"Quantity changed from {supply.quantity} to {quantity}")
-            supply.quantity = quantity  # Update the quantity
+            supply.quantity = quantity 
         if location is not None and location != supply.location:
             changes.append(f"Location changed from '{supply.location}' to '{location}'")
             supply.location = location
 
-        # Save the changes to the database
+        
         supply.save()
 
-        # Log the changes in the audit log
+     
         if changes:
             AuditLog.objects.create(
                 action='update',
-                user=request.user,  # Assuming the user is authenticated
+                user=request.user,  
                 supply=supply,
                 changes='; '.join(changes)
             )

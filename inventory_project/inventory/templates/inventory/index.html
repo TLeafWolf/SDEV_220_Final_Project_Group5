@@ -10,14 +10,14 @@
 
 
 .data_tab th, .data_tab td {
-    overflow: hidden; /* Hide overflow content */
-    text-overflow: ellipsis; /* Add ellipsis for overflow text */
-    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
 }
 
 .edit {
-    width: 100%; /* Make the input field take the full width of the cell */
-    box-sizing: border-box; /* Include padding and border in the element's total width */
+    width: 100%; 
+    box-sizing: border-box; 
 }
 
 </style>
@@ -154,7 +154,7 @@
         const display = cell.querySelector('.display');
         const input = cell.querySelector('.edit');
         
-        // Show the input field and hide the display
+ 
         display.style.display = 'none';
         input.style.display = 'inline';
         input.focus();
@@ -163,19 +163,18 @@
     function saveField(input, fieldType, supplyName) {
         const newValue = input.value;
 
-        // Hide the input field and show the display
+   
         input.style.display = 'none';
         const display = input.previousElementSibling;
         display.textContent = newValue;
         display.style.display = 'inline';
 
-        // Here you can make an AJAX call to save the new value to the server
-        // For example:
+
         fetch(`/update_supply/${supplyName}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}' // Ensure CSRF token is sent
+                'X-CSRFToken': '{{ csrf_token }}' 
             },
             body: JSON.stringify({ [fieldType]: newValue })
         })
