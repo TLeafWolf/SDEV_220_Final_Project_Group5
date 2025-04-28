@@ -46,6 +46,7 @@
 .warning{
     width: 250px;
     margin: auto;
+    margin-bottom: 10px;
 }
 .edit_button{
     width:10%;
