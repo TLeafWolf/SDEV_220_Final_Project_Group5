@@ -1,5 +1,5 @@
 # SDEV_220_Final_Project_Group5
-## what is left to do
+## What is left to do
 
 Log out  = Nguyen
 
