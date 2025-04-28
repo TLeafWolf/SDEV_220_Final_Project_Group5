@@ -1,6 +1,18 @@
 # SDEV_220_Final_Project_Group5
-## incorporate  collections such as lists, tuples, arrays, and dictionaries. in our program somewhere =to be assigned
+## what is left to do
 
+Log out  = Nguyen
+
+Python to edit the database from within the code = Nguyen
+
+Audit Logs = Maria
+
+add and edit list display = Paul
+
+ Css = me
+
+
+## Full list
 Filter/Search Functions = Maria (done)
 
 Update functions = Teresa Newman (done)
@@ -23,7 +35,11 @@ Check inventory/inventory alert  = Teresa Newman (Done)
 
 Add a logo  = Teresa Newman (done)
 
-Audit Logs = Paul Kane (will review next week to see how this turns out)
+add and edit list display = Paul
+
+Python to edit the database from within the code = Nguyen
+
+Audit Logs = Maria
 Description: Keep track of changes made to inventory items, including who made the changes and when.
 
 # Extra Your choice pick one Maria
