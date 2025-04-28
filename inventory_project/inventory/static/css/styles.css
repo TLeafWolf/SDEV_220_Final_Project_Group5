@@ -30,11 +30,11 @@
     width: 20%;
 }
 .bottom_nav{
-    width: 80%;
-    margin-left: 15%; 
+    width: 700px;
+    margin: auto;
 }
 .blank{
-    width: 50%;
+    width: 450px;
 }
 .export{
     width:5%;
@@ -45,7 +45,7 @@
 }
 .warning{
     width: 250px;
-    margin: 20px;
+    margin: auto;
 }
 .edit_button{
     width:10%;
@@ -59,26 +59,26 @@
 .table-container {
     max-height: 300px; 
     overflow-y: auto; 
-    width: 70%; 
+    width: 700px; 
     border: 1px solid #ccc;
 }
 .table-header {
     background-color: #f1f1f1; 
-    position: sticky; 
+    position: sticky;
+    width: 700px;  
     top: 0;
     z-index: 10; 
 }
 .table-body {
+    width: 700px;
     max-height: 250px; 
     overflow-y: auto; 
 }
 .data_tab {
     border-collapse: collapse;
-    width: 100%; 
     margin-right: auto; 
     margin-left: auto; 
 }
-
 .data_tab th,
 td {
     text-align: left;
@@ -90,7 +90,7 @@ td {
 }
 
 .filter {
-    margin-left: 50%; 
+    margin-left: 45%; 
 
 }
 .warning{
@@ -98,31 +98,41 @@ td {
 }
 
 .name_head{
-    width: 30%;
+    width: 160px;
 }
 .name_row{
-    width: 30.5%;
+    width: 160px;
 }
 .Price_head{
-    width: 10%;
+    width: 57px;
 }
 .Price_row{
-    width: 10.25%;
+    width: 56px;
 }
 
 .Quan_head{
-    width:20%;
+    width:114px;
 }
 .Quan_row{
-    width:20.5%;
+    width:120px;
 }
 .loc_row{
-    width:20.25%;
+    width:120px;
 }
 .loc_head{
-    width:19.75%;
+    width:116px;
 }
 .edit_head{
-    width:9.53%;
+    width:102px;
 }
 
+.edit_button{
+    width:100px;
+}
+.Del_button{
+    width:60px;
+}
+
+.del_head{
+    width:81px;
+}
