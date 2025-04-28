@@ -96,15 +96,16 @@ def add_supply(request):
         form = SupplyForm(request.POST)
         if form.is_valid():
             supply = form.save()
-            # Create an audit log for the creation
+
+            # Create an audit log entry
             AuditLog.objects.create(
-                user=request.user,
-                action='CREATE',
-                supply=supply,
-                changes=f'Created supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
+                user=request.user,  # User who made the change
+                action='CREATE',  # Action type
+                supply=supply,  # The supply that was created
+                changes=f'Created supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'  # Description of the changes
             )
             messages.success(request, 'Supply added successfully!')
-            return redirect('index')  # Redirect to the index page after adding
+            return redirect('index')
     else:
         form = SupplyForm()
     return render(request, 'inventory/add_supply.html', {'form': form})
