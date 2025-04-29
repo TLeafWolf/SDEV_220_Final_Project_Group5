@@ -13,13 +13,7 @@
             background-color: #f0f0f0; 
         }
 
- 
-        .header-container {
-            background-color: #4CAF50;
-            color: white; 
-            padding: 10px;
-            text-align: center; 
-        }
+
 
 
         .nav_tab {
@@ -65,21 +59,34 @@
 </head>
 <body>
     <div class="header-container">
-        <table class="nav_tab">
+        <img src="{% static 'icons/header_image.jpg' %}" alt="Header Background" class="header-bg">
+        <center>
+        <table class = "nav_tab">
             <tr>
                 <td>
-                    <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo">
-                </td>
-                <td class="pet">
-                    <div class="head">Pet Supplies</div>
-                </td>
-                <td class="warn2"><center>Inventory Management System</center></td>
-                <td class = "login">
-            
-                </td>  
-            </tr>
-        </table>
-    </div>
+    <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo" class = "logo">
+</td>
+
+ <td class = "pet">
+    <div class = "head">
+        Pet Supplies
+        </div>
+    </td>
+
+    <td class = "warn2">
+        <center>
+     Inventory Management System
+    </center>
+    </td>
+    
+    <td class = "login">
+        <a href="{% url 'login' %}"><button type="button">Login</button></a> 
+    </td> 
+</td>  
+</tr>
+</table>
+</center>
+</div>
 
     <div class="form-container">
         <div class="login-form">

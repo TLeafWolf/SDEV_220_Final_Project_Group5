@@ -14,14 +14,6 @@
             background-color: #f0f0f0; 
         }
 
- 
-        .header-container {
-            background-color: #4CAF50;
-            color: white; 
-            padding: 10px;
-            text-align: center; 
-        }
-
 
         .nav_tab {
             width: 100%;
@@ -65,10 +57,12 @@
 </head>
 <body>
     <div class="header-container">
+        <img src="{% static 'icons/header_image.jpg' %}" alt="Header Background" class="header-bg">
+        <center>
         <table class = "nav_tab">
             <tr>
                 <td>
-    <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo">
+    <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo" class = "logo">
 </td>
 
  <td class = "pet">
@@ -88,6 +82,7 @@
     </td>   
 </tr>
 </table>
+</center>
 </div>
 <div class="form-container">
     <div class="login-form">
