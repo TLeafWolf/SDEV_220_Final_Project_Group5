@@ -1,11 +1,24 @@
+@font-face {
+    font-family: 'Bauhaus 93';
+    src: url('fonts/Bauhaus 93 Regular.ttf') format('truetype');
+}
 
-
+body {
+    font-family: 'Georgia', serif; 
+    font-size: 14px; 
+}
 .header-container {
+    font-family: 'Bauhaus 93', Arial, sans-serif;
+    font-size: 16px; 
     background-color: #4CAF50;
     align-items: center;
     height: 80px;
     color: white; 
     text-align: center; 
+    
+}
+h1,h2{
+    font-family: 'Bauhaus 93', Arial, sans-serif;
 }
 
 .header-container img {
@@ -25,6 +38,7 @@
     vertical-align: bottom;
 }
 .pet{
+    font-family: 'Bauhaus 93', Arial, sans-serif;
     font-size: 2em;
     vertical-align: bottom;
     width: 20%;
@@ -44,9 +58,14 @@
     width:70%;
 }
 .warning{
+    
     width: 250px;
     margin: auto;
     margin-bottom: 10px;
+}
+.warning h1, h2{
+    font-family: 'Georgia', serif; 
+    font-weight: bold; 
 }
 .edit_button{
     width:10%;
