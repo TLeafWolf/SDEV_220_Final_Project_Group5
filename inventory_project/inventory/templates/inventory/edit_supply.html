@@ -52,16 +52,10 @@
         .header_log{
             color:black;
         }
-        .login-header {
-            background-color: #F6DE60; 
-            color: #4CAF50; 
-            padding: 10px; 
-            text-align: center; 
-            border-radius: 5px; 
-            margin-bottom: 20px;
+        .login-image{
             width: 385px;
-            height: 80px;
-            font-size: 1.25em;
+            height: 100px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -93,7 +87,7 @@
 </div>
 <div class="form-container">
     <div class="login-form">
-    <div class="login-header"><center><h2 class = "header_log">Edit Item</h2></center></div>
+        <div class="login-header"><center><img src="{% static 'icons\BannerYE.jpg' %}" alt="T Leaf Logo" class ="login-image"></center></div>
     <center>
     <form method="POST">
         {% csrf_token %}
