@@ -37,6 +37,10 @@
             font-family: 'Bauhaus 93', Arial, sans-serif;
             font-size: 2em;
         }
+        button{
+            margin-top: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -53,14 +57,15 @@
         </div>
     </td>
 
-<td class = "warn2">
-    Inventory Management System
-</td>
-<td class = "warn2">
-    <a href="{% url 'index' %}">
-        <button type="submit">Back
-        </button>
-        </a>
+    <td class = "warn2">
+        <center>
+     Inventory Management System
+    </center>
+    </td>
+    
+    <td class = "login">
+        <a href="{% url 'login' %}"><button type="button">Login</button></a> 
+    </td> 
 </td>  
 </tr>
 </table>
@@ -90,6 +95,11 @@
         {% endfor %}
     </table>
 </div>
+</center>
+<center><a href="{% url 'index' %}">
+    <button type="submit" >Back
+    </button>
+    </a>
 </center>
 </body>
 </html>
