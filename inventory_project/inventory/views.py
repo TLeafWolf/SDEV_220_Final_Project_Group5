@@ -130,7 +130,7 @@ def delete_supply(request, supply_name):
             supply=supply,
             changes=f'Deleted supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
         )
-        supply.save() #change to delete to delete entries and save sor it to add that it dleted the item to the audit log
+        supply.save() #change to delete to delete entries from audit log and save for it to add that it deleted the item to the audit log
         messages.success(request, 'Supply deleted successfully!')
         return redirect('index')
     
