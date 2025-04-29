@@ -107,7 +107,7 @@
                 <tr {% if supply.quantity < 6 %}style="background-color: #ffcccc;"{% endif %}>
                     <td class="name_row">{{ supply.name }}</td>
                     <td class="Price_row" onclick="editField(this, 'price', '{{ supply.name }}')">
-                        <span class="display">{{ supply.price|floatformat:2 }}</span>
+                        <span class="display">${{ supply.price|floatformat:2 }}</span>
                         <input type="text" class="edit" value="{{ supply.price|floatformat:2 }}" style="display:none;" onblur="saveField(this, 'price', '{{ supply.name }}')">
                     </td>
                     <td class="Quan_row" onclick="editField(this, 'quantity', '{{ supply.name }}')">
@@ -169,10 +169,13 @@
 function saveField(input, fieldType, supplyName) {
     const newValue = input.value;
 
+   
+    const formattedValue = `${parseFloat(newValue).toFixed(2)}`;
+
 
     input.style.display = 'none';
     const display = input.previousElementSibling;
-    display.textContent = newValue;
+    display.textContent = formattedValue; 
     display.style.display = 'inline';
 
     fetch(`/update_supply/${supplyName}/`, {
@@ -191,13 +194,13 @@ function saveField(input, fieldType, supplyName) {
     })
     .then(data => {
         console.log('Success:', data);
-
         location.reload();
     })
     .catch((error) => {
         console.error('Error:', error);
     });
 }
+
 
 
     function confirmDelete() {
