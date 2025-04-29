@@ -123,16 +123,18 @@ def add_supply(request):
 def delete_supply(request, supply_name):
     supply = get_object_or_404(Supply, name=supply_name)
 
-    # Create an audit log entry for the deletion
-    AuditLog.objects.create(
-        user=request.user,  # User who made the change
-        action='DELETE',  # Action type
-        supply=supply,  # The supply that was deleted
-        changes=f'Deleted supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'  # Description of the changes
-    )
-
-    supply.delete()
-    messages.success(request, 'Supply deleted successfully!')
+    if request.method == 'POST':
+        AuditLog.objects.create(
+            user=request.user,
+            action='DELETE',
+            supply=supply,
+            changes=f'Deleted supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
+        )
+        supply.delete()
+        messages.success(request, 'Supply deleted successfully!')
+        return redirect('index')
+    
+    messages.error(request, 'Invalid request method for deletion.')
     return redirect('index')
 
 @login_required
