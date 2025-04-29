@@ -6,29 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index Page</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-<style>
+    <style>
+        .data_tab th, .data_tab td {
+            overflow: hidden;
+            text-overflow: ellipsis; 
+            white-space: nowrap; 
+        }
 
+        .edit {
+            width: 100%; 
+            box-sizing: border-box; 
+        }
+    </style>
 
-.data_tab th, .data_tab td {
-    overflow: hidden;
-    text-overflow: ellipsis; 
-    white-space: nowrap; 
-}
-
-.edit {
-    width: 100%; 
-    box-sizing: border-box; 
-}
-
-</style>
     
 </head>
 <body>
+    
     <div class="header-container">
+        <img src="{% static 'icons/header_image.jpg' %}" alt="Header Background" class="header-bg"> <!-- Background Image -->
+        <center>
         <table class = "nav_tab">
             <tr>
                 <td>
-    <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo">
+    <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo" class = "logo">
 </td>
 
  <td class = "pet">
@@ -48,6 +49,7 @@
 </td>  
 </tr>
 </table>
+</center>
 </div>
 
 
