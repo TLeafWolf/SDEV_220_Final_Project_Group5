@@ -130,7 +130,7 @@ def delete_supply(request, supply_name):
             supply=supply,
             changes=f'Deleted supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
         )
-        supply.delete()
+        supply.save()
         messages.success(request, 'Supply deleted successfully!')
         return redirect('index')
     
