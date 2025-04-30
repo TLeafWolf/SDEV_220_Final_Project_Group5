@@ -17,6 +17,19 @@
             width: 100%; 
             box-sizing: border-box; 
         }
+
+        .conmain{
+            background-color: #4CAF50; 
+            padding: 20px; 
+            border-radius: 5px; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+            max-width: 900px; 
+            width: 100%;
+        
+        }
+        .table-body{
+            background-color: white; 
+        }
     </style>
 
     
@@ -71,6 +84,8 @@
     </div>
 {% endif %}
 
+<center>
+<div class ="conmain">
     <div class="filter">
         <form method="get" style="margin-bottom: 1rem;">
             <input type="text" name="name" placeholder="Filter by name..." value="{{ name_query }}">
@@ -153,6 +168,7 @@
     </div>
 </div>
 </center>
+
 {% if user.is_authenticated %}
 <script>
     
@@ -218,9 +234,10 @@ function saveField(input, fieldType, supplyName) {
     <tr>
         <td>
         </td>
+        {% if user.is_authenticated %}
         <td class = "blank"><a href="{% url 'audit_log' %}"><button type="button">Audit Log</button></a> </td>
         <td class = "export">
-        {% if user.is_authenticated %}
+        
             <a href="{% url 'export_supplies' %}">
                 <button type="button">Export</button>
             </a>
@@ -235,7 +252,7 @@ function saveField(input, fieldType, supplyName) {
         </td>
     </tr>
 </table>
-
-
+</div>
+</center>
 </body>
 </html>
