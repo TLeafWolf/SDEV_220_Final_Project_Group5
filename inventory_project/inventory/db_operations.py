@@ -1,8 +1,6 @@
 # Database Operations Module
 # This module provides functions to interact with the database directly from Python code
-# It includes CRUD operations for supplies and audit logs
-# Author: Nguyen Ho
-# Date: 2024
+
 
 from django.db import connection
 from .models import Supply, AuditLog
