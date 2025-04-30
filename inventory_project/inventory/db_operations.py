@@ -2,7 +2,7 @@
 # This module provides functions to interact with the database directly from Python code
 
 
-from django.db import connection
+from django.db import connection, models
 from .models import Supply, AuditLog
 from django.contrib.auth.models import User
 
