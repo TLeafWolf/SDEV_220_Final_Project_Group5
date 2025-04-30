@@ -1,7 +1,7 @@
 # SDEV_220_Final_Project_Group5
 ## What is left to do
 
-Log out  = Nguyen
+Log out  = Nguyen (done)
 
 Python to edit the database from within the code = Nguyen
 
@@ -29,7 +29,7 @@ Make the import page match the theme of the site(CSS) = Nguyen Ho (done by Teres
 
 Make the Low stock page fit the rest of the site(CSS) = Nguyen Ho (done by Teresa Newman)
 
-Log out  =  Nguyen Ho
+Log out  =  Nguyen Ho (done)
 
 Check inventory/inventory alert  = Teresa Newman (Done)
 
