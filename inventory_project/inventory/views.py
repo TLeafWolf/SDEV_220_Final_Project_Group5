@@ -161,7 +161,7 @@ def edit_supply(request, supply_name):
         form = SupplyForm(instance=supply)
     return render(request, 'inventory/edit_supply.html', {'form': form})
 
-
+@login_required
 @csrf_exempt 
 def update_supply(request, supply_name):
     if request.method == 'POST':

@@ -107,15 +107,26 @@
             </thead>
         </table>
     </div>
+    
     <div class="table-body">
         <table border="1" class="data_tab">
             <tbody>
                 {% for supply in supplies %}
                 <tr {% if supply.quantity < 6 %}style="background-color: #ffcccc;"{% endif %}>
                     <td class="name_row">{{ supply.name }}</td>
-                    <td class="Price_row">${{ supply.price|floatformat:2 }}</td>
-                    <td class="Quan_row">{{ supply.quantity }}</td>
-                    <td class="loc_row">{{ supply.location }}</td>
+                    <td class="Price_row" onclick="editField(this, 'price', '{{ supply.name }}')">
+                        <span class="display">${{ supply.price|floatformat:2 }}</span>
+                        <input type="text" class="edit" value="{{ supply.price|floatformat:2 }}" style="display:none;" onblur="saveField(this, 'price', '{{ supply.name }}')">
+                    </td>
+                    <td class="Quan_row" onclick="editField(this, 'quantity', '{{ supply.name }}')">
+                        <span class="display">{{ supply.quantity }}</span>
+                        <input type="text" class="edit" value="{{ supply.quantity }}" style="display:none;" onblur="saveField(this, 'quantity', '{{ supply.name }}')">
+                    </td>
+                    
+                    <td class="loc_row" onclick="editField(this, 'location', '{{ supply.name }}')">
+                        <span class="display">{{ supply.location }}</span>
+                        <input type="text" class="edit" value="{{ supply.location }}" style="display:none;" onblur="saveField(this, 'location', '{{ supply.name }}')">
+                    </td>
                     <td class='edit_button'>
                         <center>
                             {% if user.is_authenticated %}
@@ -142,7 +153,9 @@
     </div>
 </div>
 </center>
+{% if user.is_authenticated %}
 <script>
+    
         function editField(cell, fieldType, supplyName) {
     const display = cell.querySelector('.display');
     const input = cell.querySelector('.edit');
@@ -200,7 +213,7 @@ function saveField(input, fieldType, supplyName) {
         return confirm("Are you sure you want to delete this item?");
     }
 </script>
-
+{% endif %}
 <table class = "bottom_nav">
     <tr>
         <td>
