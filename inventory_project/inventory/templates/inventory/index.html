@@ -113,37 +113,23 @@
                 {% for supply in supplies %}
                 <tr {% if supply.quantity < 6 %}style="background-color: #ffcccc;"{% endif %}>
                     <td class="name_row">{{ supply.name }}</td>
-                    <td class="Price_row" onclick="editField(this, 'price', '{{ supply.name }}')">
-                        <span class="display">${{ supply.price|floatformat:2 }}</span>
-                        <input type="text" class="edit" value="{{ supply.price|floatformat:2 }}" style="display:none;" onblur="saveField(this, 'price', '{{ supply.name }}')">
-                    </td>
-                    <td class="Quan_row" onclick="editField(this, 'quantity', '{{ supply.name }}')">
-                        <span class="display">{{ supply.quantity }}</span>
-                        <input type="text" class="edit" value="{{ supply.quantity }}" style="display:none;" onblur="saveField(this, 'quantity', '{{ supply.name }}')">
-                    </td>
-                    
-                    <td class="loc_row" onclick="editField(this, 'location', '{{ supply.name }}')">
-                        <span class="display">{{ supply.location }}</span>
-                        <input type="text" class="edit" value="{{ supply.location }}" style="display:none;" onblur="saveField(this, 'location', '{{ supply.name }}')">
-                    </td>
+                    <td class="Price_row">${{ supply.price|floatformat:2 }}</td>
+                    <td class="Quan_row">{{ supply.quantity }}</td>
+                    <td class="loc_row">{{ supply.location }}</td>
                     <td class='edit_button'>
                         <center>
                             {% if user.is_authenticated %}
                                 <a href="{% url 'edit_supply' supply.name %}"><button type="button">Edit</button></a>
-                            {% else %}
-                                <span style="color: orange;">Login to edit</span>
                             {% endif %}
                         </center>
                     </td>
                     <td class='Del_button'>
-                        <form action="{% url 'delete_supply' supply.name %}" method="post" style="display:inline;" onsubmit="return confirmDelete();">
-                            {% csrf_token %}
-                            {% if user.is_authenticated %}
+                        {% if user.is_authenticated %}
+                            <form action="{% url 'delete_supply' supply.name %}" method="post" style="display:inline;" onsubmit="return confirmDelete();">
+                                {% csrf_token %}
                                 <button type="submit">Delete</button>
-                            {% else %}
-                                <span style="color: orange;">Login to Delete</span>
-                            {% endif %}
-                        </form>
+                            </form>
+                        {% endif %}
                     </td>
                 </tr>
                 {% empty %}
@@ -218,22 +204,23 @@ function saveField(input, fieldType, supplyName) {
 <table class = "bottom_nav">
     <tr>
         <td>
-
-</td>
-<td class = "blank"><a href="{% url 'audit_log' %}"><button type="button">Audit Log</button></a> </td>
-<td class = "export">
-{% if user.is_authenticated %}
-<a href="{% url 'export_supplies' %}">
-    <button type="button">Export</button>
-</a>
-</td>
-<td class = "import">
-<a href="{% url 'import_supplies' %}">
-    <button type="button">Import</button>
-</a>
-{% endif %}
-</td>
-</tr>
+        </td>
+        <td class = "blank"><a href="{% url 'audit_log' %}"><button type="button">Audit Log</button></a> </td>
+        <td class = "export">
+        {% if user.is_authenticated %}
+            <a href="{% url 'export_supplies' %}">
+                <button type="button">Export</button>
+            </a>
+        {% endif %}
+        </td>
+        <td class = "import">
+        {% if user.is_authenticated %}
+            <a href="{% url 'import_supplies' %}">
+                <button type="button">Import</button>
+            </a>
+        {% endif %}
+        </td>
+    </tr>
 </table>
 
 
