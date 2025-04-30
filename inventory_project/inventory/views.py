@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import models
 from .models import Supply, AuditLog  # Make sure to import AuditLog
@@ -199,3 +199,7 @@ def update_supply(request, supply_name):
         return JsonResponse({'status': 'success', 'message': 'Supply updated successfully.'})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=400)
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
