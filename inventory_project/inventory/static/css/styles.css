@@ -34,17 +34,17 @@ body {
 }
 
 .header-bg {
-    position: absolute; /* Position the image absolutely */
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%; /* Make the image cover the entire header */
-    height: 100%; /* Make the image cover the entire header */
-    object-fit: cover; /* Ensure the image covers the area without distortion */
-    z-index: 1; /* Place the image behind the content */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
 }
 
 .header-content {
-    position: relative; /* Position relative to stack on top of the background */
+    position: relative;
     z-index: 2;
     display: flex;
     align-items: center;
@@ -185,7 +185,7 @@ body {
 }
 
 .table-header {
-    background-color: #4CAF50; /* Solid color for the header */
+    background-color: #4CAF50; 
     position: sticky;
     width: 100%;
     top: 0;
@@ -242,7 +242,7 @@ body {
    Table Header Styles
 ============================================================================ */
 .data_tab thead {
-    background-color: #4CAF50; /* Solid color for the header */
+    background-color: #4CAF50;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -273,38 +273,38 @@ body {
 .data_tab thead .name_head {
     text-align: center;
     width: 30%;
-    background-color: #4CAF50; /* Solid color */
+    background-color: #4CAF50;
 }
 
 .data_tab thead .Price_head {
     text-align: center;
     width: 15%;
-    background-color: #4CAF50; /* Solid color */
+    background-color: #4CAF50;
 }
 
 .data_tab thead .Quan_head {
     text-align: center;
     width: 15%;
-    background-color: #4CAF50; /* Solid color */
+    background-color: #4CAF50;
 }
 
 .data_tab thead .loc_head {
     text-align: center;
     width: 20%;
-    background-color: #4CAF50; /* Solid color */
+    background-color: #4CAF50;
 }
 
 .data_tab thead .action_head {
     text-align: center;
     width: 20%;
-    background-color: #4CAF50; /* Solid color */
+    background-color: #4CAF50;
 }
 
 .data_tab thead .edit_head,
 .data_tab thead .del_head {
     text-align: center;
     width: 10%;
-    background-color: #4CAF50; /* Solid color */
+    background-color: #4CAF50;
     min-width: 120px;
 }
 
@@ -317,7 +317,7 @@ body {
 
 /* Hover effect for header */
 .data_tab thead th:hover {
-    background-color: #388E3C; /* Change to a solid color for hover effect */
+    background-color: #388E3C; 
     transition: all 0.3s ease;
 }
 
@@ -526,7 +526,7 @@ button:hover {
 }
 
 .table-header {
-    background-color: #F6DE60; /* Updated to new color */
+    background-color: #F6DE60; 
     position: sticky;
     width: 100%;
     top: 0;
@@ -588,7 +588,7 @@ button:hover {
 }
 
 .table-header {
-    background-color: #F6DE60; /* Updated to new color */
+    background-color: #F6DE60;
     position: sticky;
     width: 100%;
     top: 0;
@@ -602,35 +602,35 @@ button:hover {
 }
 
 .data_tab {
-    width: 100%; /* Make the table take the full width of the container */
-    border-collapse: collapse; /* Merge borders for a cleaner look */
-    table-layout: auto; /* Allow the table to adjust based on content */
+    width: 100%; 
+    border-collapse: collapse;
+    table-layout: auto;
 
 }
 
 .data_tab th,
 .data_tab td {
     text-align: center;
-    padding: 0; /* Remove padding to control height */
+    padding: 0; 
     border: 1px solid #ddd;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    height: 40px; /* Set height to 40px */
+    height: 40px;
     line-height: 1.2;
 }
 
 .data_tab th {
-    padding: 0; /* Remove padding to control height */
-    font-size: 16px; /* Font size for header */
-    font-weight: bold; /* Bold font weight */
-    text-transform: uppercase; /* Uppercase text */
-    letter-spacing: 0.5px; /* Spacing between letters */
-    color: #FFFFFF; /* Text color */
-    line-height: 40px; /* Center text vertically */
-    text-align: center; /* Center text alignment */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Text shadow */
-    background-color: #F6DE60; /* Background color */
+    padding: 0; 
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px; 
+    color: #FFFFFF; 
+    line-height: 40px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    background-color: #F6DE60;
 }
 
 /* Table Column Widths */
@@ -650,7 +650,7 @@ button:hover {
    Table Header Styles
 ============================================================================ */
 .data_tab thead {
-    background-color: #F6DE60; /* Updated to new color */
+    background-color: #F6DE60;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -658,28 +658,28 @@ button:hover {
 }
 
 .data_tab thead tr {
-    height: 40px; /* Ensure header row height is 40px */
+    height: 40px; 
 }
 .data_tab td {
-    border: 1px solid #ddd; /* Add a border to table cells */
-    padding: 10px; /* Add padding for better spacing */
-    text-align: center; /* Center text alignment */
-    white-space: nowrap; /* Prevent text from wrapping */
+    border: 1px solid #ddd; 
+    padding: 10px; 
+    text-align: center; 
+    white-space: nowrap;
 }
 
 /* Table Header Styles */
 .data_tab th {
-    padding: 0; /* Remove padding to control height */
-    font-size: 16px; /* Font size for header */
-    font-weight: bold; /* Bold font weight */
-    text-transform: uppercase; /* Uppercase text */
-    letter-spacing: 0.5px; /* Spacing between letters */
-    color: #FFFFFF; /* Text color */
-    border-bottom: 2px solid #1B5E20; /* Bottom border */
-    line-height: 40px; /* Center text vertically */
-    text-align: center; /* Center text alignment */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Text shadow */
-    background-color: #F6DE60; /* Background color matching the button */
+    padding: 0; 
+    font-size: 16px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+    color: #FFFFFF; 
+    border-bottom: 2px solid #1B5E20; 
+    line-height: 40px; 
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    background-color: #F6DE60;
 
 }
 
@@ -687,38 +687,38 @@ button:hover {
 .data_tab thead .name_head {
     text-align: center;
     width: 30%;
-    background-color: #F6DE60; /* Updated to new color */
+    background-color: #F6DE60; 
 }
 
 .data_tab thead .Price_head {
     text-align: center;
     width: 15%;
-    background-color: #F6DE60; /* Updated to new color */
+    background-color: #F6DE60;
 }
 
 .data_tab thead .Quan_head {
     text-align: center;
     width: 15%;
-    background-color: #F6DE60; /* Updated to new color */
+    background-color: #F6DE60; 
 }
 
 .data_tab thead .loc_head {
     text-align: center;
     width: 20%;
-    background-color: #F6DE60; /* Updated to new color */
+    background-color: #F6DE60;
 }
 
 .data_tab thead .action_head {
     text-align: center;
     width: 20%;
-    background-color: #F6DE60; /* Updated to new color */
+    background-color: #F6DE60; 
 }
 
 .data_tab thead .edit_head,
 .data_tab thead .del_head {
     text-align: center;
     width: 10%;
-    background-color: #F6DE60; /* Updated to new color */
+    background-color: #F6DE60; 
     min-width: 120px;
 }
 
@@ -731,7 +731,7 @@ button:hover {
 
 /* Hover effect for header */
 .data_tab thead th:hover {
-    background-color: #D6C94A; /* Optional: Change hover color for better contrast */
+    background-color: #D6C94A;
     transition: all 0.3s ease;
 }
 

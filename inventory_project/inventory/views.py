@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import models
-from .models import Supply, AuditLog  # Make sure to import AuditLog
+from .models import Supply, AuditLog  
 from .forms import SupplyForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -130,7 +130,7 @@ def delete_supply(request, supply_name):
             supply=supply,
             changes=f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
         )
-        supply.delete() #change to delete to delete entries from audit log and save for it to add that it deleted the item to the audit log
+        supply.delete() 
         messages.success(request, 'Supply deleted successfully!')
         return redirect('index')
     
