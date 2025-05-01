@@ -9,7 +9,7 @@ Audit Logs = Maria (done)
 
 add and edit list display = Paul
 
- Css = Teresa Newman
+ Css = Teresa Newman (in progress)
 
 
 ## Full list
