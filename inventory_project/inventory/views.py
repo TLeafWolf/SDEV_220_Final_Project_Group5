@@ -124,13 +124,14 @@ def delete_supply(request, supply_name):
     supply = get_object_or_404(Supply, name=supply_name)
 
     if request.method == 'POST':
+        # Create audit log before deleting
         AuditLog.objects.create(
             user=request.user,
             action='DELETE',
             supply=supply,
             details=f'Deleted supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
         )
-        supply.save() #change to delete to delete entries from audit log and save for it to add that it deleted the item to the audit log
+        supply.delete()  # Actually delete the supply
         messages.success(request, 'Supply deleted successfully!')
         return redirect('index')
     
