@@ -9,32 +9,24 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <div class="header-container">
+    <header class="header-container">
         <img src="{% static 'icons/header_image.jpg' %}" alt="Header Background" class="header-bg">
-        <center>
-            <table class="nav_tab">
-                <tr>
-                    <td>
-                        <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo" class="logo">
-                    </td>
-                    <td class="pet">
-                        <div class="head">Pet Supplies</div>
-                    </td>
-                    <td class="warn2">
-                        <center>Inventory Management System</center>
-                    </td>
-                    <td class="login">
-                        {% if user.is_authenticated %}
-                            <span class="welcome-text">Welcome, {{ user.username }}</span>
-                            <a href="{% url 'logout' %}"><button class="logout-button">Logout</button></a>
-                        {% else %}
-                            <a href="{% url 'login' %}"><button class="logout-button">Login</button></a>
-                        {% endif %}
-                    </td>
-                </tr>
-            </table>
-        </center>
-    </div>
+        <div class="header-content">
+            <div class="header-left">
+                <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo" class="logo">
+                <div class="header-title">Pet Supplies</div>
+            </div>
+            <div class="header-subtitle">Inventory Management System</div>
+            <div class="header-right">
+                {% if user.is_authenticated %}
+                    <span class="welcome-text">Welcome, {{ user.username }}</span>
+                    <a href="{% url 'logout' %}" class="header-button">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="header-button">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
 
     <div class="content-container">
         {% block content %}{% endblock %}
