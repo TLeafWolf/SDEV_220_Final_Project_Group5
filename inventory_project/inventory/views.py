@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import models
-from .models import Supply, AuditLog  # Make sure to import AuditLog
-from .forms import SupplyForm
+from .models import Supply, AuditLog, Category, Tag  # Make sure to import AuditLog, Category, and Tag
+from .forms import SupplyForm, CategoryForm, TagForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import csv
@@ -23,7 +23,7 @@ def index(request):
     supplies = Supply.objects.all()
 
     if low_stock:
-        supplies = supplies.filter(quantity__lt=6)
+        supplies = supplies.filter(quantity__lte=models.F('reorder_point'))
 
     if location_query:
         supplies = supplies.filter(location__icontains=location_query)
@@ -111,7 +111,7 @@ def add_supply(request):
                 user=request.user,  # User who made the change
                 action='CREATE',  # Action type
                 supply=supply,  # The supply that was created
-                changes=f'Created supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'  # Description of the changes
+                details=f'Created supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'  # Description of the changes
             )
             messages.success(request, 'Supply added successfully!')
             return redirect('index')
@@ -128,7 +128,7 @@ def delete_supply(request, supply_name):
             user=request.user,
             action='DELETE',
             supply=supply,
-            changes=f'Deleted supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
+            details=f'Deleted supply: {supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
         )
         supply.save() #change to delete to delete entries from audit log and save for it to add that it deleted the item to the audit log
         messages.success(request, 'Supply deleted successfully!')
@@ -153,7 +153,7 @@ def edit_supply(request, supply_name):
                 user=request.user,  # User who made the change
                 action='UPDATE',  # Action type
                 supply=supply,  # The supply that was updated
-                changes=f'Updated supply: From {old_data} to {new_data}'  # Description of what was changed
+                details=f'Updated supply: From {old_data} to {new_data}'  # Description of what was changed
             )
             messages.success(request, 'Supply updated successfully!')
             return redirect('index')
@@ -193,7 +193,7 @@ def update_supply(request, supply_name):
                 action='Update',
                 user=request.user,  
                 supply=supply,
-                changes='; '.join(changes)
+                details='; '.join(changes)
             )
 
         return JsonResponse({'status': 'success', 'message': 'Supply updated successfully.'})
@@ -203,3 +203,57 @@ def update_supply(request, supply_name):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+def category_list(request):
+    categories = Category.objects.all()
+    return render(request, 'inventory/category_list.html', {'categories': categories})
+
+def category_create(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Category created successfully.')
+            return redirect('category_list')
+    else:
+        form = CategoryForm()
+    return render(request, 'inventory/category_form.html', {'form': form, 'title': 'Create Category'})
+
+def category_update(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Category updated successfully.')
+            return redirect('category_list')
+    else:
+        form = CategoryForm(instance=category)
+    return render(request, 'inventory/category_form.html', {'form': form, 'title': 'Update Category'})
+
+def tag_list(request):
+    tags = Tag.objects.all()
+    return render(request, 'inventory/tag_list.html', {'tags': tags})
+
+def tag_create(request):
+    if request.method == 'POST':
+        form = TagForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Tag created successfully.')
+            return redirect('tag_list')
+    else:
+        form = TagForm()
+    return render(request, 'inventory/tag_form.html', {'form': form, 'title': 'Create Tag'})
+
+def tag_update(request, pk):
+    tag = get_object_or_404(Tag, pk=pk)
+    if request.method == 'POST':
+        form = TagForm(request.POST, instance=tag)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Tag updated successfully.')
+            return redirect('tag_list')
+    else:
+        form = TagForm(instance=tag)
+    return render(request, 'inventory/tag_form.html', {'form': form, 'title': 'Update Tag'})

@@ -111,7 +111,7 @@ def get_low_stock_supplies():
     """
     return Supply.objects.filter(quantity__lte=models.F('reorder_point'))
 
-def create_audit_log(user, action, supply, changes):
+def create_audit_log(user, action, supply, details):
     """
     Create an audit log entry
     
@@ -119,7 +119,7 @@ def create_audit_log(user, action, supply, changes):
         user (User): User who performed the action
         action (str): Type of action (CREATE, UPDATE, DELETE)
         supply (Supply): Supply that was affected
-        changes (str): Description of changes made
+        details (str): Description of changes made
     
     Returns:
         AuditLog: The created audit log object or None if failed
@@ -129,7 +129,7 @@ def create_audit_log(user, action, supply, changes):
             user=user,
             action=action,
             supply=supply,
-            changes=changes
+            details=details
         )
     except Exception as e:
         print(f"Error creating audit log: {e}")

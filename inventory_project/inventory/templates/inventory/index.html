@@ -131,10 +131,15 @@
             <table border="1" class="data_tab">
                 <tbody>
                     {% for supply in supplies %}
-                    <tr {% if supply.quantity < 6 %}class="low-stock"{% endif %}>
+                    <tr {% if supply.quantity <= supply.reorder_point %}class="low-stock"{% endif %}>
                         <td class="name_row">{{ supply.name }}</td>
                         <td class="Price_row">${{ supply.price|floatformat:2 }}</td>
-                        <td class="Quan_row">{{ supply.quantity }}</td>
+                        <td class="Quan_row">
+                            {{ supply.quantity }}
+                            {% if supply.quantity <= supply.reorder_point %}
+                                <span class="low-stock-warning">(Low Stock!)</span>
+                            {% endif %}
+                        </td>
                         <td class="loc_row">{{ supply.location }}</td>
                         <td class="action_row">
                             {% if user.is_authenticated %}
@@ -157,6 +162,15 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+        
+        <div class="table-actions">
+            <a href="{% url 'export_supplies' %}" class="action-button export-button">
+                <i class="fas fa-download"></i> Export
+            </a>
+            <a href="{% url 'import_supplies' %}" class="action-button import-button">
+                <i class="fas fa-upload"></i> Import
+            </a>
         </div>
     </div>
 

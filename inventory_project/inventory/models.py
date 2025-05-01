@@ -1,33 +1,67 @@
 from django.db import models
 from django.contrib.auth.models import User  # To link to the user making the change
+from django.core.validators import MinValueValidator
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Categories"
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
 
 class Supply(models.Model):
-    name = models.CharField(max_length=255, primary_key=True)
-    price = models.FloatField()
-    quantity = models.IntegerField()
-    location = models.CharField(max_length=255)
-    reorder_point = models.PositiveIntegerField(default=5)
-    
+    name = models.CharField(max_length=100, unique=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
+    quantity = models.IntegerField(validators=[MinValueValidator(0)])
+    location = models.CharField(max_length=100)
+    reorder_point = models.IntegerField(validators=[MinValueValidator(0)])
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name='supplies')
+    tags = models.ManyToManyField(Tag, blank=True, related_name='supplies')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Supplies"
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+    @property
     def is_low_stock(self):
         return self.quantity <= self.reorder_point
 
-    def __str__(self):
-        formatted_price = f"{self.price:.2f}"
-        return f"{self.name} (${formatted_price})"
-
-
 class AuditLog(models.Model):
     ACTION_CHOICES = (
-        ('CREATE', 'Create'),
-        ('UPDATE', 'Update'),
-        ('DELETE', 'Delete'),
+        ('create', 'Create'),
+        ('update', 'Update'),
+        ('delete', 'Delete'),
     )
+    
+    supply = models.ForeignKey(Supply, on_delete=models.CASCADE)
+    action = models.CharField(max_length=10, choices=ACTION_CHOICES)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    details = models.TextField(blank=True)
 
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)  # Track the user making the change
-    action = models.CharField(max_length=10, choices=ACTION_CHOICES)  # The type of action (CREATE, UPDATE, DELETE)
-    supply = models.ForeignKey(Supply, on_delete=models.CASCADE)  # Link to the supply that was changed
-    changes = models.TextField()  # Description of what was changed
-    timestamp = models.DateTimeField(auto_now_add=True)  # When the change was made
+    class Meta:
+        ordering = ['-timestamp']
 
     def __str__(self):
-        return f'{self.action} by {self.user.username} on {self.supply.name} at {self.timestamp}'
+        return f"{self.action} - {self.supply} - {self.timestamp}"
