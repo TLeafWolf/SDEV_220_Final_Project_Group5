@@ -1,177 +1,144 @@
+{% extends 'inventory/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Pet Supplies Inventory</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <style>
-        body {
-            margin: 0;
-            background-color: #f5f5f5;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
 
-        .nav_tab {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
+{% block title %}Login - Pet Supplies Inventory{% endblock %}
 
-        .form-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: calc(100vh - 60px);
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(246, 222, 96, 0.1));
-        }
+{% block extra_css %}
+<style>
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(246, 222, 96, 0.1));
+    }
 
-        .login-form {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-        }
+    .login-form {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    .form-group {
+        margin-bottom: 20px;
+    }
 
-        .form-group label {
-            display: block;
-            color: #333;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
+    .form-group label {
+        display: block;
+        color: #333;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
 
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-            box-sizing: border-box;
-        }
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+    }
 
-        .form-group input:focus {
-            border-color: #4CAF50;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
-        }
+    .form-group input:focus {
+        border-color: #4CAF50;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
 
-        .login-button {
-            background: #4CAF50;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
+    .login-button {
+        background: #4CAF50;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
 
-        .login-button:hover {
-            background: #45a049;
-        }
+    .login-button:hover {
+        background: #45a049;
+    }
 
-        .login-image {
-            width: 100%;
-            max-width: 385px;
-            height: auto;
-            margin-bottom: 25px;
-            border-radius: 10px;
-        }
+    .login-image {
+        width: 100%;
+        max-width: 385px;
+        height: auto;
+        margin-bottom: 25px;
+        border-radius: 10px;
+    }
 
-        .messages {
-            list-style: none;
-            padding: 0;
-            margin: 15px 0;
-        }
+    .messages {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0;
+    }
 
-        .messages li {
-            color: #721c24;
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 5px;
-            text-align: center;
-        }
+    .messages li {
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        text-align: center;
+    }
 
-        .welcome-text {
-            color: white;
-            margin-right: 15px;
-            font-size: 16px;
-        }
+    .welcome-text {
+        color: white;
+        margin-right: 15px;
+        font-size: 16px;
+    }
 
-        .logout-button {
-            background: #dc3545;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    .logout-button {
+        background: #dc3545;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-        .logout-button:hover {
-            background: #c82333;
-        }
-    </style>
-</head>
-<body>
-    <div class="header-container">
-        <img src="{% static 'icons/header_image.jpg' %}" alt="Header Background" class="header-bg">
+    .logout-button:hover {
+        background: #c82333;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="login-form">
         <center>
-            <table class="nav_tab">
-                <tr>
-                    <td>
-                        <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo" class="logo">
-                    </td>
-                    <td class="pet">
-                        <div class="head">Pet Supplies</div>
-                    </td>
-                    <td class="warn2">
-                        <center>Inventory Management System</center>
-                    </td>
-                </tr>
-            </table>
+            <img src="{% static 'icons/BannerYL.jpg' %}" alt="T Leaf Logo" class="login-image">
         </center>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-button">Sign In</button>
+        </form>
+        
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
-
-    <div class="form-container">
-        <div class="login-form">
-            <center>
-                <img src="{% static 'icons/BannerYL.jpg' %}" alt="T Leaf Logo" class="login-image">
-            </center>
-            
-            <form method="POST">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit" class="login-button">Sign In</button>
-            </form>
-            
-            {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-    </div>
-</body>
-</html>
+</div>
+{% endblock %}

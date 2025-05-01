@@ -1,109 +1,109 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Supply</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <style>
+{% extends 'inventory/base.html' %}
 
-        body {
-            margin: 0; 
-            background-color: #f0f0f0; 
-        }
+{% block title %}Add Supply - Pet Supplies Inventory{% endblock %}
 
+{% block extra_css %}
+<style>
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        padding: 20px;
+    }
 
-        .nav_tab {
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
+    .login-form {
+        background-color: #4CAF50;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
+    }
 
-       
-        .form-container {
-            display: flex;
-            justify-content: center; 
-            align-items: center;
-            height: calc(100vh - 60px); 
-        }
+    .login-image {
+        width: 100%;
+        max-width: 385px;
+        height: auto;
+        margin-bottom: 25px;
+        border-radius: 10px;
+    }
 
-  
-        .login-form {
-            background-color: #4CAF50; 
-            padding: 20px; 
-            border-radius: 5px; 
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
-            max-width: 400px; 
-            width: 100%; 
-        }
-        .user{
-            color:#F6DE60;
-            margin:10px;
-        }
-        .header_log{
-            color:black;
-        }
-        .login-image{
-            width: 385px;
-            height: 100px;
-            margin-bottom: 20px;
-        }
-        button{
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="header-container">
-        <img src="{% static 'icons/header_image.jpg' %}" alt="Header Background" class="header-bg">
-        <center>
-        <table class = "nav_tab">
-            <tr>
-                <td>
-    <img src="{% static 'icons/TLeafLogo2sm.png' %}" alt="T Leaf Logo" class = "logo">
-</td>
+    .form-group {
+        margin-bottom: 20px;
+    }
 
- <td class = "pet">
-    <div class = "head">
-        Pet Supplies
-        </div>
-    </td>
+    .form-group label {
+        display: block;
+        color: #F6DE60;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
 
-    <td class = "warn2">
-        <center>
-     Inventory Management System
-    </center>
-    </td>
-    
-    <td class = "login">
-        {% if user.is_authenticated %}
-            <span style="color: white; margin-right: 10px;">Welcome, {{ user.username }}</span>
-            <a href="{% url 'logout' %}"><button type="button">Logout</button></a>
-        {% else %}
-            <a href="{% url 'login' %}"><button type="button">Login</button></a>
-        {% endif %}
-    </td>   
-</tr>
-</table>
-</center>
-</div>
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    button {
+        background-color: #F6DE60;
+        color: #333;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+        font-weight: 600;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #e6ce50;
+    }
+
+    .back-button {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .back-button:hover {
+        background-color: #5a6268;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
 <div class="form-container">
     <div class="login-form">
-    <div class="login-header"><center><img src="{% static 'icons\BannerY.jpg' %}" alt="T Leaf Logo" class ="login-image"></center></div>
-    <center>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }} 
-        <button type="submit">Add</button>
-    </form>
-    <a href="{% url 'index' %}">
-        <button type="submit">Back
-        </button>
-        </a>
-</center>
-</div>
+        <center>
+            <img src="{% static 'icons/BannerY.jpg' %}" alt="T Leaf Logo" class="login-image">
+        </center>
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small style="color: #F6DE60;">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                    <div style="color: #dc3545;">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <center>
+                <button type="submit">Add Supply</button>
+                <a href="{% url 'index' %}">
+                    <button type="button" class="back-button">Back</button>
+                </a>
+            </center>
+        </form>
     </div>
-
-</body>
-</html>
+</div>
+{% endblock %}
