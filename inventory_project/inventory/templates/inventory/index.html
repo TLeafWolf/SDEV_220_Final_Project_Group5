@@ -103,6 +103,15 @@
         </form>
     </div>
 
+    <center>{% if user.is_authenticated %}
+        <a href="{% url 'add_supply' %}">
+            <p></p>
+        </a>
+        {% else %}
+        <div style="color: red;">
+            <strong>Please log in to add, edit, or delete supplies.</strong>
+        </div>
+        {% endif %}</center> 
     <center>
 <div class="table-container">
     <div class="table-header">
@@ -115,15 +124,7 @@
                     <th class="loc_head">Location</th>
                     <th class="edit_head"></th>
                    <th class="del_head">
-                    <center>{% if user.is_authenticated %}
-                        <a href="{% url 'add_supply' %}">
-                            <button type="button">Add</button>
-                        </a>
-                        {% else %}
-                        <div style="color: red;">
-                            <strong>Please log in to add, edit, or delete supplies.</strong>
-                        </div>
-                        {% endif %}</center> 
+                    <button type="button">Add</button>
                     </th>
                 </tr>
             </thead>
