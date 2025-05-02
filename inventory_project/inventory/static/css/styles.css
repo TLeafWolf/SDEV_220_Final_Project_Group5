@@ -117,37 +117,7 @@ body {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-    .header-container {
-        height: 70px;
-    }
-    
-    .header-title {
-        font-size: 1.8em;
-    }
-    
-    .header-subtitle {
-        font-size: 1.1em;
-    }
-    
-    .header-content {
-        padding: 0 15px;
-    }
-    
-    .header-left {
-        gap: 15px;
-    }
-    
-    .logo {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .header-button {
-        padding: 6px 15px;
-        font-size: 14px;
-    }
-}
+
 
 /* ============================================================================
    Navigation Styles
@@ -185,7 +155,6 @@ body {
 }
 
 .table-header {
-    background-color: #4CAF50; 
     color:black;
     position: sticky;
     width: 100%;
@@ -243,7 +212,6 @@ body {
    Table Header Styles
 ============================================================================ */
 .data_tab thead {
-    background-color: #4CAF50;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -274,38 +242,37 @@ body {
 .data_tab thead .name_head {
     text-align: center;
     width: 30%;
-    background-color: #4CAF50;
 }
 
 .data_tab thead .Price_head {
     text-align: center;
     width: 15%;
-    background-color: #4CAF50;
+
 }
 
 .data_tab thead .Quan_head {
     text-align: center;
     width: 15%;
-    background-color: #4CAF50;
+
 }
 
 .data_tab thead .loc_head {
     text-align: center;
     width: 20%;
-    background-color: #4CAF50;
+
 }
 
 .data_tab thead .action_head {
     text-align: center;
     width: 20%;
-    background-color: #4CAF50;
+
 }
 
 .data_tab thead .edit_head,
 .data_tab thead .del_head {
     text-align: center;
     width: 10%;
-    background-color: #4CAF50;
+
     min-width: 120px;
 }
 
@@ -318,13 +285,13 @@ body {
 
 /* Hover effect for header */
 .data_tab thead th:hover {
-    background-color: #388E3C; 
+
     transition: all 0.3s ease;
 }
 
 /* Login message style */
 .login-message {
-    color: #FFA000;
+    color: #ff0000;
     font-size: 14px;
     padding: 5px;
     background-color: rgba(255, 255, 255, 0.1);
@@ -443,7 +410,6 @@ button:hover {
 }
 
 .add-button {
-    background-color: #4CAF50;
     color: white;
     padding: 8px 20px;
     border: none;
@@ -472,7 +438,12 @@ button:hover {
     gap: 6px;
     padding: 2px;
 }
-
+.EditB{
+    background-color: #ababab;
+}
+.DelB{
+    background-color: #ababab;
+}
 .edit-button, .delete-button {
     padding: 4px 8px;
     font-size: 12px;
@@ -483,17 +454,7 @@ button:hover {
     vertical-align: middle;
 }
 
-/* Add responsive styles for action buttons */
-@media (max-width: 768px) {
-    .action-buttons {
-        flex-direction: column;
-        gap: 5px;
-    }
-    
-    .edit-button, .delete-button {
-        width: 100%;
-    }
-}
+
 
 /* ============================================================================
    Table Column Widths
@@ -609,7 +570,7 @@ button:hover {
     line-height: 40px;
     text-align: center;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    background-color: #F6DE60;
+    background-color: #ffefa1;
 }
 
 /* Table Column Widths */
@@ -629,7 +590,7 @@ button:hover {
    Table Header Styles
 ============================================================================ */
 .data_tab thead {
-    background-color: #F6DE60;
+    background-color: #ffefa1;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -658,7 +619,7 @@ button:hover {
     line-height: 40px; 
     text-align: center;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    background-color: #F6DE60;
+    background-color: #ffefa1;
 
 }
 
@@ -666,38 +627,37 @@ button:hover {
 .data_tab thead .name_head {
     text-align: center;
     width: 30%;
-    background-color: #F6DE60; 
+
 }
 
 .data_tab thead .Price_head {
     text-align: center;
     width: 15%;
-    background-color: #F6DE60;
+    background-color: #ffefa1;
 }
 
 .data_tab thead .Quan_head {
     text-align: center;
     width: 15%;
-    background-color: #F6DE60; 
+ 
 }
 
 .data_tab thead .loc_head {
     text-align: center;
     width: 20%;
-    background-color: #F6DE60;
+
 }
 
 .data_tab thead .action_head {
     text-align: center;
     width: 20%;
-    background-color: #F6DE60; 
+
 }
 
 .data_tab thead .edit_head,
 .data_tab thead .del_head {
     text-align: center;
-    width: 10%;
-    background-color: #F6DE60; 
+    width: 10%; 
     min-width: 120px;
 }
 

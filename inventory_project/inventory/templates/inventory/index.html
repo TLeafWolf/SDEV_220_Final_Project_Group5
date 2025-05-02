@@ -60,7 +60,6 @@
         text-align: center; 
         border: 1px solid #ddd; 
         padding: 10px;
-        background-color: #F6DE60;
         font-weight: bold;
     }
 
@@ -133,6 +132,11 @@
         background-color: #F6DE60;
         color: black;
     }
+
+    .table-container .data_tab th {
+        background-color: #ffefa1 !important;
+    }
+
 </style>
 
 
@@ -213,7 +217,7 @@
                             <td class='edit_button'>
                                 <center>
                                     {% if user.is_authenticated %}
-                                        <a href="{% url 'edit_supply' supply.name %}"><button type="button">Edit</button></a>
+                                        <a href="{% url 'edit_supply' supply.name %}"><button type="button" class = 'EditB'>Edit</button></a>
                                     {% endif %}
                                 </center>
                             </td>
@@ -221,7 +225,7 @@
                                 {% if user.is_authenticated %}
                                     <form action="{% url 'delete_supply' supply.name %}" method="post" style="display:inline;" onsubmit="return confirmDelete();">
                                         {% csrf_token %}
-                                        <button type="submit">Delete</button>
+                                        <button type="submit"  class = 'DelB'>Delete</button>
                                     </form>
                                 {% endif %}
                             </td>
