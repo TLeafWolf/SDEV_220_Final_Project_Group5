@@ -186,6 +186,7 @@ body {
 
 .table-header {
     background-color: #4CAF50; 
+    color:black;
     position: sticky;
     width: 100%;
     top: 0;
@@ -218,7 +219,7 @@ body {
 }
 
 .data_tab th {
-    color: white;
+    color: black;
     font-weight: bold;
     font-size: 16px;
     padding: 8px 12px;
@@ -259,7 +260,7 @@ body {
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #FFFFFF;
+    color: black;
     text-align: center;
     white-space: nowrap;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
@@ -525,19 +526,9 @@ button:hover {
     position: relative;
 }
 
-.table-header {
-    background-color: #F6DE60; 
-    position: sticky;
-    width: 100%;
-    top: 0;
-    z-index: 10;
-}
 
-.table-body {
-    width: 100%;
-    max-height: 550px;
-    overflow-y: auto;
-}
+
+
 
 .data_tab {
     width: 100%;
@@ -587,19 +578,7 @@ button:hover {
     position: relative;
 }
 
-.table-header {
-    background-color: #F6DE60;
-    position: sticky;
-    width: 100%;
-    top: 0;
-    z-index: 10;
-}
 
-.table-body {
-    width: 100%;
-    max-height: 550px;
-    overflow-y: auto;
-}
 
 .data_tab {
     width: 100%; 
@@ -626,7 +605,7 @@ button:hover {
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.5px; 
-    color: #FFFFFF; 
+    color:black; 
     line-height: 40px;
     text-align: center;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
