@@ -15,7 +15,7 @@ class Supply(models.Model):
     def __str__(self):
         formatted_price = f"{self.price:.2f}"
         return f"{self.name} (${formatted_price})"
-
+    
 
 class AuditLog(models.Model):
     ACTION_CHOICES = (
