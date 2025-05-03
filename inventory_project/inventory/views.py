@@ -15,22 +15,35 @@ import json
 
 
 def index(request):
+    
     location_query = request.GET.get('location', '')
     name_query = request.GET.get('name', '')
     low_stock = request.GET.get('low_stock', False)
 
+  
+    sort_by = request.GET.get('sort', 'location')  
+    order = request.GET.get('order', 'asc') 
 
-    supplies = Supply.objects.all().order_by('location')
+
+    if order == 'desc':
+        sort_by = '-' + sort_by 
+
+ 
+    supplies = Supply.objects.all()
+
 
     if low_stock:
         supplies = supplies.filter(quantity__lt=6)
 
     if location_query:
         supplies = supplies.filter(location__icontains=location_query)
+
     if name_query:
         supplies = supplies.filter(name__icontains=name_query)
 
- 
+
+    supplies = supplies.order_by(sort_by)
+
     if request.method == 'POST':
         supply_name = request.POST.get('supply_name')
         quantity_returned = int(request.POST.get('quantity', 0))
@@ -43,16 +56,19 @@ def index(request):
         else:
             messages.error(request, 'Invalid quantity returned. Please enter a positive number.')
 
-    
+  
     low_stock_items = Supply.objects.filter(quantity__lte=models.F('reorder_point'))
     low_stock_items_exist = low_stock_items.exists() 
 
+ 
     context = { 
         'supplies': supplies,
         'low_stock_items': low_stock_items,
         'location_query': location_query,
         'name_query': name_query,
         'low_stock_items_exist': low_stock_items_exist,
+        'sort_by': sort_by,
+        'order': order,
     }
     return render(request, 'inventory/index.html', context)
 
