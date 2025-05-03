@@ -130,7 +130,6 @@ def add_supply(request):
                 changes=f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'  # Description of the changes
             )
             messages.success(request, 'Supply added successfully!')
-            return redirect('index')
     else:
         form = SupplyForm()
     return render(request, 'inventory/add_supply.html', {'form': form})
@@ -172,7 +171,7 @@ def edit_supply(request, supply_name):
                 changes=f'From {old_data} to {new_data}'  # Description of what was changed
             )
             messages.success(request, 'Supply updated successfully!')
-            return redirect('index')
+ 
     else:
         form = SupplyForm(instance=supply)
     return render(request, 'inventory/edit_supply.html', {'form': form})
