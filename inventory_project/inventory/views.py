@@ -121,15 +121,20 @@ def add_supply(request):
         form = SupplyForm(request.POST)
         if form.is_valid():
             supply = form.save()
+            if 'added_supplies' not in request.session:
+                request.session['added_supplies'] = []
 
-            # Create an audit log entry
+            request.session['added_supplies'].append(supply.name) 
+            request.session.modified = True  
+
             AuditLog.objects.create(
-                user=request.user,  # User who made the change
-                action='CREATE',  # Action type
-                supply=supply,  # The supply that was created
-                changes=f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'  # Description of the changes
+                user=request.user, 
+                action='CREATE', 
+                supply=supply,
+                changes=f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}' 
             )
             messages.success(request, 'Supply added successfully!')
+            return render(request, 'inventory/add_supply.html', {'form': form})
     else:
         form = SupplyForm()
     return render(request, 'inventory/add_supply.html', {'form': form})
@@ -163,12 +168,12 @@ def edit_supply(request, supply_name):
             supply = form.save()
             new_data = f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
 
-            # Create an audit log entry for the update
+
             AuditLog.objects.create(
-                user=request.user,  # User who made the change
-                action='UPDATE',  # Action type
-                supply=supply,  # The supply that was updated
-                changes=f'From {old_data} to {new_data}'  # Description of what was changed
+                user=request.user, 
+                action='UPDATE',  
+                supply=supply, 
+                changes=f'From {old_data} to {new_data}' 
             )
             messages.success(request, 'Supply updated successfully!')
  

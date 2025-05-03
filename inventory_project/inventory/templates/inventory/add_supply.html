@@ -105,6 +105,17 @@
                 </a>
             </center>
         </form>
+
+        <h3>Added Supplies:</h3>
+        <ul>
+            {% if request.session.added_supplies %}
+                {% for supply in request.session.added_supplies %}
+                    <li>{{ supply }}</li>
+                {% endfor %}
+            {% else %}
+                <li>No supplies added yet.</li>
+            {% endif %}
+        </ul>
     </div>
 </div>
 {% endblock %}
