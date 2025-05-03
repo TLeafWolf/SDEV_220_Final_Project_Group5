@@ -20,7 +20,7 @@ def index(request):
     low_stock = request.GET.get('low_stock', False)
 
 
-    supplies = Supply.objects.all()
+    supplies = Supply.objects.all().order_by('location')
 
     if low_stock:
         supplies = supplies.filter(quantity__lt=6)
