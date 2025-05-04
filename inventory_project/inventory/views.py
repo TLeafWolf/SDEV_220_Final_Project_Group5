@@ -15,22 +15,17 @@ import json
 
 
 def index(request):
-    
     location_query = request.GET.get('location', '')
     name_query = request.GET.get('name', '')
     low_stock = request.GET.get('low_stock', False)
-
   
     sort_by = request.GET.get('sort', 'location')  
     order = request.GET.get('order', 'asc') 
 
-
     if order == 'desc':
         sort_by = '-' + sort_by 
 
- 
     supplies = Supply.objects.all()
-
 
     if low_stock:
         supplies = supplies.filter(quantity__lt=6)
@@ -40,7 +35,6 @@ def index(request):
 
     if name_query:
         supplies = supplies.filter(name__icontains=name_query)
-
 
     supplies = supplies.order_by(sort_by)
 
@@ -59,7 +53,8 @@ def index(request):
   
     low_stock_items = Supply.objects.filter(quantity__lte=models.F('reorder_point'))
     low_stock_items_exist = low_stock_items.exists() 
-
+    if 'added_supplies' in request.session:
+        del request.session['added_supplies']
  
     context = { 
         'supplies': supplies,
