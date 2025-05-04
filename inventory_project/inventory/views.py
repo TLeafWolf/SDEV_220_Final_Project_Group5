@@ -130,6 +130,8 @@ def add_supply(request):
             )
             messages.success(request, 'Supply added successfully!')
             return render(request, 'inventory/add_supply.html', {'form': form})
+        else:
+            return render(request, 'inventory/add_supply.html', {'form': form}) 
     else:
         form = SupplyForm()
     return render(request, 'inventory/add_supply.html', {'form': form})
