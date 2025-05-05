@@ -181,7 +181,7 @@
                 <strong>Please log in to add, edit, or delete supplies.</strong>
             </div>
             {% endif %}</center> 
-    
+            <div id="error-message" style="display: none;"></div>
             <div class="table-container">
                 <div class="table-header">
                     <table border="1" class="data_tab">
@@ -282,77 +282,90 @@
 
 {% block extra_js %}
 {% if user.is_authenticated %}
-
 <script>
-   
-        function editField(cell, fieldType, supplyName) {
-    const display = cell.querySelector('.display');
-    const input = cell.querySelector('.edit');
+    function editField(cell, fieldType, supplyName) {
+        const display = cell.querySelector('.display');
+        const input = cell.querySelector('.edit');
 
+        // Hide the display element and show the input element
+        display.style.display = 'none';
+        input.style.display = 'inline';
+        input.focus();
 
-    display.style.display = 'none';
-    input.style.display = 'inline';
-    input.focus();
+        // Clear any previous error messages
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.style.display = 'none';
 
+        // Add event listeners for Enter key and blur
+        input.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                saveField(input, fieldType, supplyName);
+            }
+        });
 
- 
-    input.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
+        input.addEventListener('blur', function() {
             saveField(input, fieldType, supplyName);
+        });
+    }
+
+    function saveField(input, fieldType, supplyName) {
+        const newValue = input.value;
+
+        // Regular expression to match the format "A/12"
+        const aisleBayFormat = /^[A-Z]\/\d+$/;
+
+        // Check if the fieldType is 'location' and validate the format
+        if (fieldType === 'location' && !aisleBayFormat.test(newValue)) {
+            // Display an error message directly on the page
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.textContent = "Please enter the location in the format 'A/12' (e.g., A/12).";
+            errorMessage.style.color = 'red';
+            errorMessage.style.display = 'block'; // Show the error message
+            return; // Exit the function if the format is invalid
+        } else {
+            // Hide the error message if the format is valid
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.style.display = 'none';
         }
-    });
-}
 
+        // Format the value for price fields
+        const formattedValue = fieldType === 'price' ? `${parseFloat(newValue).toFixed(2)}` : newValue;
 
-function saveField(input, fieldType, supplyName) {
-    const newValue = input.value;
+        input.style.display = 'none'; // Hide the input field after saving
+        const display = input.previousElementSibling;
+        display.textContent = formattedValue; // Update the display value
+        display.style.display = 'inline'; // Show the display value
 
-
-   
-    const formattedValue = `${parseFloat(newValue).toFixed(2)}`;
-
-
-
-
-    input.style.display = 'none';
-    const display = input.previousElementSibling;
-    display.textContent = formattedValue;
-    display.style.display = 'inline';
-
-
-    fetch(`/update_supply/${supplyName}/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}'
-        },
-        body: JSON.stringify({ [fieldType]: newValue })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        location.reload();
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}
-
-
-
-
-
+        // Update the supply on the server
+        fetch(`/update_supply/${supplyName}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ [fieldType]: newValue })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            location.reload(); // Reload the page to reflect changes
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
 
     function confirmDelete() {
         return confirm("Are you sure you want to delete this item?");
     }
 </script>
 {% endif %}
+
 
 
 {% endblock %}
