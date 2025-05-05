@@ -1,18 +1,5 @@
 # SDEV_220_Final_Project_Group5
-## What is left to do
 
-Log out  = Nguyen (done)
-
-Python to edit the database from within the code = Nguyen
-
-Audit Logs = Maria (done)
-
-add and edit list display = Paul
-
- Css = Teresa Newman (in progress do not interupt with your own css code NGUYEN!!!)
-
-
-## Full list
 Filter/Search Functions = Maria (done)
 
 Update functions = Teresa Newman (done)
@@ -23,7 +10,7 @@ Login screen = Teresa Newman (done)
 
 home page = Teresa Newman (done)
 
-Changing appearance with CSS =  Teresa Newman
+Changing appearance with CSS =  Teresa Newman (done)
 
 Make the import page match the theme of the site(CSS) = Nguyen Ho (done by Teresa Newman)
 
@@ -35,9 +22,9 @@ Check inventory/inventory alert  = Teresa Newman (Done)
 
 Add a logo  = Teresa Newman (done)
 
-add and edit list display = Paul
+add and edit list display = Paul (done by Teresa)
 
-Python to edit the database from within the code = Nguyen
+Python to edit the database from within the code = Nguyen (doen by Teresa)
 
 Audit Logs = Maria (done)
 Description: Keep track of changes made to inventory items, including who made the changes and when.
