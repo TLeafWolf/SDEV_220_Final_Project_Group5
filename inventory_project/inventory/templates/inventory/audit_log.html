@@ -4,6 +4,7 @@
 
 {% block title %}Audit Log - Pet Supplies Inventory{% endblock %}
 
+
 {% block extra_css %}
 <style>
 .conmain {
@@ -13,36 +14,55 @@
     border-radius: 10px;
 }
 
+
 @font-face {
     font-family: 'Bauhaus 93';
     src: url('fonts/Bauhaus 93 Regular.ttf') format('truetype');
 }
 
+
 .table-container {
-    width: 100%; 
-    max-height: 600px; 
-    overflow-y: auto; 
+    width: 100%;
+    max-height: 600px;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
+
 .data_tab {
-    width: 100%; 
+    width: 100%;
     border-collapse: collapse;
     table-layout: auto;
 }
 
+
 .data_tab th, .data_tab td {
-    text-align: center; 
-    border: 1px solid #ddd; 
+    text-align: center;
+    border: 1px solid #ddd;
     padding: 8px;
-    white-space: nowrap; 
+    white-space: nowrap;
 }
 
+
 .changes {
-    word-wrap: break-word; 
     max-width: 200px;
-    
 }
+
+
+.changes-content {
+    max-height: 1.2em;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    white-space: normal;
+}
+
+
+.changes.expanded .changes-content {
+    max-height: none;
+    white-space: normal;
+}
+
+
 
 h2 {
     font-family: 'Bauhaus 93', Arial, sans-serif;
@@ -51,6 +71,7 @@ h2 {
     text-align: center;
     margin-bottom: 20px;
 }
+
 
 .back-button {
     background-color: #F6DE60;
@@ -63,13 +84,15 @@ h2 {
     transition: background-color 0.3s;
 }
 
+
 .back-button:hover {
     background-color: #e6ce50;
 }
 
+
 th {
-    padding: 0; 
-    font-size: 16px; 
+    padding: 0;
+    font-size: 16px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -81,25 +104,32 @@ th {
     background-color: #F6DE60;
 }
 
+
 td {
     border-bottom: 1px solid #ddd;
 }
 
+
 tr:hover {
     background-color: #f5f5f5;
 }
+
+
 .login-image {
-        width: 100%;
-        max-width: 385px;
-        height: auto;
-        margin-bottom: 25px;
-        border-radius: 10px;
-    }
-    .table-container .data_tab th {
-        background-color: #ffefa1 !important;
-    }
+    width: 100%;
+    max-width: 385px;
+    height: auto;
+    margin-bottom: 25px;
+    border-radius: 10px;
+}
+
+
+.table-container .data_tab th {
+    background-color: #ffefa1 !important;
+}
 </style>
 {% endblock %}
+
 
 {% block content %}
 <center>
@@ -118,6 +148,8 @@ tr:hover {
                     <th>Timestamp</th>
                 </tr>
             </thead>
+
+
             <tbody>
                 {% for log in logs %}
                 <tr>
@@ -132,12 +164,20 @@ tr:hover {
                             Supply deleted
                         {% endif %}
                     </td>
-                              
-                    <td class="changes">{{ log.changes }}</td>
+                    <td class="changes">
+                        <div class="changes-content" id="changes-content-{{ forloop.counter }}">
+                            {{ log.changes|default:"No changes recorded." }}
+                        </div>
+                        <span class="toggle-text" onclick="toggleDetails(event, this)" style="display: none;">Show more</span>
+                    </td>
+                    
                     <td>{{ log.timestamp }}</td>
                 </tr>
+                
                 {% endfor %}
             </tbody>
+            
+                 
         </table>
     </div>
     <center>
@@ -149,5 +189,58 @@ tr:hover {
 </div>
 </center>
 {% endblock %}
+
+
+{% block extra_js %}
+<script>
+function toggleDetails(event, toggleText) {
+
+    event.stopPropagation();
+
+
+
+    const changesCell = toggleText.closest('.changes');
+    const changesContent = changesCell.querySelector('.changes-content');
+
+
+
+    changesCell.classList.toggle('expanded');
+
+
+
+    if (changesCell.classList.contains('expanded')) {
+        toggleText.textContent = 'Show less';
+        changesContent.style.maxHeight = 'none';
+    } else {
+        toggleText.textContent = 'Show more';
+        changesContent.style.maxHeight = '1.2em';
+    }
+}
+
+
+
+function checkContentOverflow() {
+    const changeCells = document.querySelectorAll('.changes');
+    changeCells.forEach(cell => {
+        const content = cell.querySelector('.changes-content');
+        const toggleText = cell.querySelector('.toggle-text');
+
+
+        if (content.scrollHeight > content.clientHeight) {
+            toggleText.style.display = 'inline';
+        } else {
+            toggleText.style.display = 'none'; 
+        }
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', checkContentOverflow);
+
+
+
+</script>
+{% endblock %}
+
 
 <!--Hello world 5/1/2025-->

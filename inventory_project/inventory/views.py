@@ -196,13 +196,13 @@ def update_supply(request, supply_name):
 
         changes = []
         if price is not None and price != str(supply.price):
-            changes.append(f"Price changed from ${supply.price} to ${price}")
+            changes.append(f"{supply.name}: Price changed from ${supply.price} to ${price}")
             supply.price = price
         if quantity is not None and quantity != str(supply.quantity):
-            changes.append(f"Quantity changed from {supply.quantity} to {quantity}")
+            changes.append(f"{supply.name}: Quantity changed from {supply.quantity} to {quantity}")
             supply.quantity = quantity 
         if location is not None and location != supply.location:
-            changes.append(f"Location changed from '{supply.location}' to '{location}'")
+            changes.append(f"{supply.name}: Location changed from '{supply.location}' to '{location}'")
             supply.location = location
 
         
