@@ -4,13 +4,13 @@ from django.db import models
 from .models import Supply, AuditLog  
 from .forms import SupplyForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required,
 import csv
 from django.http import HttpResponse, JsonResponse
 from .forms import UploadFileForm
 from django.views.decorators.csrf import csrf_exempt
 import json
-from django.contrib.auth.models import User
+
 
 
 
