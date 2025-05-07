@@ -1,6 +1,10 @@
+
+
 {% extends 'inventory/base.html' %}
 
 {% block title %}Pet Supplies Inventory{% endblock %}
+
+{% load static %}
 
 {% block extra_css %}
 <style>
@@ -163,13 +167,6 @@
 {% endif %}
 
 <center>
-{% if user.is_authenticated and user.is_staff %}
-<a href="{% url 'user_list' %}">
-    <button type="button">Admin</button>
-</a>
-{% endif %}
-</center>
-<center>
     <div class="conmain">
         <div class="filter">
             <form method="get" style="margin-bottom: 1rem;">
@@ -285,6 +282,7 @@
             </tr>
         </table>
     </div>
+
     
 {% endblock %}
 

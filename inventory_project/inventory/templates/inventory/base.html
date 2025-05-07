@@ -24,6 +24,16 @@
                 {% else %}
                     <a href="{% url 'login' %}" class="header-button">Login</a>
                 {% endif %}
+                <center>
+                    {% if user.is_authenticated and user.is_staff %}
+                    <a href="{% url 'user_list' %}">  <!-- Replace 'your_view_name' with the actual view name or URL -->
+                        <img src="{% static 'icons/settinggear.svg' %}" alt="Settings" style="width: 75px; height: auto;">
+                    </a>
+                {% else %}
+                    <p>User is not authenticated or not staff.</p>
+                {% endif %}
+                
+                </center>
             </div>
         </div>
     </header>
