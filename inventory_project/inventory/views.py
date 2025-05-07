@@ -147,7 +147,11 @@ def delete_supply(request, supply_name):
             supply=supply,
             changes=f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
         )
+        
+        AuditLog.objects.filter(supply=supply).update(supply=None)
+        
         supply.delete() 
+        
         messages.success(request, 'Supply deleted successfully!')
         return redirect('index')
     

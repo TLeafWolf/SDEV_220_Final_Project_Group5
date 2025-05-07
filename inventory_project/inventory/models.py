@@ -26,7 +26,7 @@ class AuditLog(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)  # Track the user making the change
     action = models.CharField(max_length=10, choices=ACTION_CHOICES)  # The type of action (CREATE, UPDATE, DELETE)
-    supply = models.ForeignKey(Supply, on_delete=models.CASCADE)  # Link to the supply that was changed
+    supply = models.ForeignKey(Supply, on_delete=models.SET_NULL, null=True)
     changes = models.TextField()  # Description of what was changed
     timestamp = models.DateTimeField(auto_now_add=True)  # When the change was made
 
