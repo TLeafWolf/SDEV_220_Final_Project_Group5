@@ -4,14 +4,14 @@ from django.db import models
 from .models import Supply, AuditLog  
 from .forms import SupplyForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 import csv
 from django.http import HttpResponse, JsonResponse
 from .forms import UploadFileForm
 from django.views.decorators.csrf import csrf_exempt
 import json
-
-
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
 def index(request):
@@ -224,3 +224,45 @@ def update_supply(request, supply_name):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+
+# twesitng shit
+
+@user_passes_test(lambda u: u.is_superuser)  # Ensure only superusers can access this
+def user_list(request):
+    users = User.objects.all()
+    return render(request, 'inventory/user_list.html', {'users': users})
+
+@user_passes_test(lambda u: u.is_superuser)
+def add_user(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'User added successfully!')
+            return redirect('user_list')
+    else:
+        form = UserCreationForm()
+    return render(request, 'inventory/add_user.html', {'form': form})
+
+@user_passes_test(lambda u: u.is_superuser)
+def edit_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        form = UserChangeForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'User updated successfully!')
+            return redirect('user_list')
+    else:
+        form = UserChangeForm(instance=user)
+    return render(request, 'inventory/edit_user.html', {'form': form, 'user': user})
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        user.delete()
+        messages.success(request, 'User deleted successfully!')
+        return redirect('user_list')
+    return render(request, 'inventory/delete_user.html', {'user': user})

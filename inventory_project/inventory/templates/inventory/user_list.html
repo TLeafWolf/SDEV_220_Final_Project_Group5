@@ -1,0 +1,145 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+
+{% block title %}Users- Pet Supplies Inventory{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+    }
+
+    .login-form {
+        background: #45a049;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        color: #333;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+
+    .login-button {
+        background-color: #F6DE60;
+        color: black;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+
+    .login-button:hover {
+        background-color: #f8e378;
+        color: #333;
+    }
+
+    .login-image {
+        width: 100%;
+        max-width: 385px;
+        height: auto;
+        margin-bottom: 25px;
+        border-radius: 10px;
+    }
+
+    .messages {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0;
+    }
+
+    .messages li {
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+
+    .welcome-text {
+        color: white;
+        margin-right: 15px;
+        font-size: 16px;
+    }
+
+    .logout-button {
+        background: #dc3545;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .logout-button:hover {
+        background: #c82333;
+    }
+    button {
+        background-color: #F6DE60;
+        color: #333;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+        font-weight: 600;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #e6ce50;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="login-form">
+<center><h1>Users</h1></center>
+<center><a href="{% url 'add_user' %}"><button type="button" class= "addU">Add User</button></a></center>
+<ul>
+    {% for user in users %}
+        <li>
+            {{ user.username }} - <a href="{% url 'edit_user' user.id %}"><button type="button" class='EditB'>Edit</button></a> - 
+            <a href="{% url 'delete_user' user.id %}"><button type="submit" class='DelB'>Delete</button></a>
+        </li>
+    {% endfor %}
+</ul>
+</div>
+</div>
+
+{% endblock %}

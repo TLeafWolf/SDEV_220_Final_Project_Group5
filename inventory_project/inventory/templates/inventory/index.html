@@ -161,6 +161,14 @@
         <p style="color: green;">All supplies are adequately stocked.</p>
     </div>
 {% endif %}
+
+<center>
+{% if user.is_authenticated and user.is_staff %}
+<a href="{% url 'user_list' %}">
+    <button type="button">Admin</button>
+</a>
+{% endif %}
+</center>
 <center>
     <div class="conmain">
         <div class="filter">
@@ -365,6 +373,7 @@
     }
 </script>
 {% endif %}
+
 
 
 
