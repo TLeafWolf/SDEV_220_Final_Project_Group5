@@ -4,7 +4,7 @@ from django.db import models
 from .models import Supply, AuditLog  
 from .forms import SupplyForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required,
+from django.contrib.auth.decorators import login_required
 import csv
 from django.http import HttpResponse, JsonResponse
 from .forms import UploadFileForm
