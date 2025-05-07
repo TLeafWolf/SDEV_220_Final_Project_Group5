@@ -226,9 +226,8 @@ def logout_view(request):
     return redirect('index')
 
 
-# twesitng shit
 
-@user_passes_test(lambda u: u.is_superuser)  # Ensure only superusers can access this
+@user_passes_test(lambda u: u.is_superuser)
 def user_list(request):
     users = User.objects.all()
     return render(request, 'inventory/user_list.html', {'users': users})
