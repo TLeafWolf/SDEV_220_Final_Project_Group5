@@ -13,10 +13,6 @@ urlpatterns = [
     path('export/', views.export_supplies, name='export_supplies'), 
     path('import/', views.import_supplies, name='import_supplies'),  
     path('update_supply/<str:supply_name>/', views.update_supply, name='update_supply'),
-    #testing
-    path('users/', views.user_list, name='user_list'),
-    path('users/add/', views.add_user, name='add_user'),
-    path('users/edit/<int:user_id>/', views.edit_user, name='edit_user'),
-    path('users/delete/<int:user_id>/', views.delete_user, name='delete_user'),
+
     
 ]
