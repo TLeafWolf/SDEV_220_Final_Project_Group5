@@ -123,7 +123,16 @@ tr:hover {
                 <tr>
                     <td>{{ log.get_action_display }}</td>
                     <td>{{ log.user.username }}</td>
-                    <td>{{ log.supply.name }}</td>
+                    <td>
+                        {% if log.action == 'DELETE' %}
+                            Supply deleted
+                        {% elif log.supply %}
+                            {{ log.supply.name }}
+                        {% else %}
+                            Supply deleted
+                        {% endif %}
+                    </td>
+                              
                     <td class="changes">{{ log.changes }}</td>
                     <td>{{ log.timestamp }}</td>
                 </tr>

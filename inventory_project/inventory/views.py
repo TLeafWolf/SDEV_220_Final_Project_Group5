@@ -211,7 +211,7 @@ def update_supply(request, supply_name):
      
         if changes:
             AuditLog.objects.create(
-                action='Update',
+                action='UPDATE',
                 user=request.user,  
                 supply=supply,
                 changes='; '.join(changes)
