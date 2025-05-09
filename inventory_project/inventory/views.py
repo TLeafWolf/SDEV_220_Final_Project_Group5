@@ -2,12 +2,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import models
 from .models import Supply, AuditLog  
-from .forms import SupplyForm
+from .forms import SupplyForm, UserCreationForm, UserDeletionForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.decorators import login_required, user_passes_test
 import csv
 from django.http import HttpResponse, JsonResponse
-from .forms import UploadFileForm
+from .forms import UploadFileForm, GroupForm, UserUpdateForm
 from django.views.decorators.csrf import csrf_exempt
 import json
 
@@ -87,7 +88,7 @@ def export_supplies(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="supplies.csv"'
     writer = csv.writer(response)
-    writer.writerow(['Name', 'Price', 'Quantity', 'Location'])  # Header row
+    writer.writerow(['Name', 'Price', 'Quantity', 'Location'])
     for supply in Supply.objects.all():
         writer.writerow([supply.name, supply.price, supply.quantity, supply.location])
     return response
@@ -126,7 +127,7 @@ def add_supply(request):
                 user=request.user, 
                 action='CREATE', 
                 supply=supply,
-                changes=f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}' 
+                changes=f'{supply.name}, ${supply.price:,.2f}, {supply.quantity}, {supply.location}' 
             )
             messages.success(request, 'Supply added successfully!')
             return render(request, 'inventory/add_supply.html', {'form': form})
@@ -145,7 +146,7 @@ def delete_supply(request, supply_name):
             user=request.user,
             action='DELETE',
             supply=supply,
-            changes=f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
+            changes=f'{supply.name}, ${supply.price:,.2f}, {supply.quantity}, {supply.location}'
         )
         
         AuditLog.objects.filter(supply=supply).update(supply=None)
@@ -161,14 +162,14 @@ def delete_supply(request, supply_name):
 @login_required
 def edit_supply(request, supply_name):
     supply = get_object_or_404(Supply, name=supply_name)
+    
     if request.method == 'POST':
+        old_data = f'{supply.name}, ${supply.price:,.2f}, {supply.quantity}, {supply.location}'
+        
         form = SupplyForm(request.POST, instance=supply)
         if form.is_valid():
-    
-            old_data = f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
             supply = form.save()
-            new_data = f'{supply.name}, {supply.price}, {supply.quantity}, {supply.location}'
-
+            new_data = f'{supply.name}, ${supply.price:,.2f}, {supply.quantity}, {supply.location}'
 
             AuditLog.objects.create(
                 user=request.user, 
@@ -177,13 +178,14 @@ def edit_supply(request, supply_name):
                 changes=f'From {old_data} to {new_data}' 
             )
             messages.success(request, 'Supply updated successfully!')
- 
+
     else:
         form = SupplyForm(instance=supply)
+
     return render(request, 'inventory/edit_supply.html', {'form': form})
 
 @login_required
-@csrf_exempt 
+@csrf_exempt
 def update_supply(request, supply_name):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -191,25 +193,33 @@ def update_supply(request, supply_name):
         quantity = data.get('quantity')
         location = data.get('location')
 
-        
         supply = get_object_or_404(Supply, name=supply_name)
 
         changes = []
-        if price is not None and price != str(supply.price):
-            changes.append(f"{supply.name}: Price changed from ${supply.price} to ${price}")
-            supply.price = price
+        
+   
+        old_price = supply.price
+        old_price_formatted = f"${old_price:,.2f}"
+        
+        if price is not None:
+            new_price = float(price)
+            new_price_formatted = f"${new_price:,.2f}"
+            
+            if new_price != old_price:
+                changes.append(f"{supply.name}: Price changed from {old_price_formatted} to {new_price_formatted}")
+                supply.price = new_price
+
         if quantity is not None and quantity != str(supply.quantity):
             changes.append(f"{supply.name}: Quantity changed from {supply.quantity} to {quantity}")
             supply.quantity = quantity 
+
         if location is not None and location != supply.location:
             changes.append(f"{supply.name}: Location changed from '{supply.location}' to '{location}'")
             supply.location = location
 
-        
-        supply.save()
-
-     
+  
         if changes:
+            supply.save()
             AuditLog.objects.create(
                 action='UPDATE',
                 user=request.user,  
@@ -224,3 +234,81 @@ def update_supply(request, supply_name):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+def add_user(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = UserCreationForm()
+    return render(request, 'inventory/add_user.html', {'form': form})
+
+def delete_user(request):
+    if request.method == 'POST':
+        form = UserDeletionForm(request.POST)
+        if form.is_valid():
+            user_to_delete = form.cleaned_data['user']
+            user_to_delete.delete()
+            messages.success(request, f'User "{user_to_delete.username}" deleted successfully!')
+            return redirect('delete_user')
+    else:
+        form = UserDeletionForm()
+    return render(request, 'inventory/delete_user.html', {'form': form})
+
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def manage_groups(request):
+    groups = Group.objects.all()
+
+    if request.method == 'POST':
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('manage_groups')
+    else:
+        form = GroupForm()
+
+    return render(request, 'inventory/manage_groups.html', {'groups': groups, 'form': form})
+
+@user_passes_test(lambda u: u.is_superuser)  
+def select_user(request):
+    users = User.objects.all()
+    return render(request, 'inventory/select_user.html', {'users': users})
+
+@user_passes_test(lambda u: u.is_superuser)
+def update_user(request):
+    user_id = request.GET.get('user_id')
+    user = get_object_or_404(User, id=user_id)
+    
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=user)
+        if form.is_valid():
+            user = form.save(commit=False)  # Save the user instance without committing to the database yet
+            if form.cleaned_data['password']:
+                user.set_password(form.cleaned_data['password'])  # Set the new password if provided
+            user.save()  # Now save the user instance to the database
+
+            user.groups.clear()  # Clear existing groups
+            user.groups.add(form.cleaned_data['group'])  # Add the new group
+
+            messages.success(request, 'User updated successfully.')
+            return redirect('select_user')  # Redirect to the user selection page without re-logging in
+        else:
+            print(form.errors)  # Print form errors for debugging
+    else:
+        form = UserUpdateForm(instance=user)
+
+    current_groups = user.groups.all()
+
+    return render(request, 'inventory/update_user.html', {
+        'form': form,
+        'user': user,
+        'current_groups': current_groups,
+    })
+
+@user_passes_test(lambda u: u.is_superuser)
+def admin_settings(request):
+    return render(request, 'inventory/admin_settings.html')

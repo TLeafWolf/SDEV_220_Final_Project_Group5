@@ -289,67 +289,77 @@
 {% block extra_js %}
 {% if user.is_authenticated %}
 <script>
+    let isSaving = false;
     function editField(cell, fieldType, supplyName) {
         const display = cell.querySelector('.display');
         const input = cell.querySelector('.edit');
 
-        // Hide the display element and show the input element
+
         display.style.display = 'none';
         input.style.display = 'inline';
         input.focus();
 
-        // Clear any previous error messages
+
         const errorMessage = document.getElementById('error-message');
         errorMessage.style.display = 'none';
 
-        // Add event listeners for Enter key and blur
-        input.addEventListener('keydown', function(event) {
+
+        input.removeEventListener('keydown', handleKeyDown);
+        input.removeEventListener('blur', handleBlur);
+
+   
+        input.addEventListener('keydown', handleKeyDown);
+        input.addEventListener('blur', handleBlur);
+
+        function handleKeyDown(event) {
             if (event.key === 'Enter') {
                 saveField(input, fieldType, supplyName);
             }
-        });
+        }
 
-        input.addEventListener('blur', function() {
+        function handleBlur() {
             saveField(input, fieldType, supplyName);
-        });
+        }
     }
 
     function saveField(input, fieldType, supplyName) {
-        const newValue = input.value;
+        if (isSaving) return;
+        isSaving = true;
 
-        // Regular expression to match the format "A/12"
+        let newValue = input.value;
+
+
         const aisleBayFormat = /^[A-Z]\/\d+$/;
 
-        // Check if the fieldType is 'location' and validate the format
         if (fieldType === 'location' && !aisleBayFormat.test(newValue)) {
-            // Display an error message directly on the page
             const errorMessage = document.getElementById('error-message');
             errorMessage.textContent = "Please enter the location in the format 'A/12' (e.g., A/12).";
             errorMessage.style.color = 'red';
-            errorMessage.style.display = 'block'; // Show the error message
-            return; // Exit the function if the format is invalid
+            errorMessage.style.display = 'block';
+            isSaving = false;
+            return;
         } else {
-            // Hide the error message if the format is valid
+            
             const errorMessage = document.getElementById('error-message');
             errorMessage.style.display = 'none';
         }
 
-        // Format the value for price fields
-        const formattedValue = fieldType === 'price' ? `${parseFloat(newValue).toFixed(2)}` : newValue;
+        
+        if (fieldType === 'price') {
+            const priceValue = parseFloat(newValue.replace(/[$,]/g, ''));
+            if (!isNaN(priceValue)) {
+                newValue = `${priceValue.toFixed(2)}`;
+            }
+        }
 
-        input.style.display = 'none'; // Hide the input field after saving
-        const display = input.previousElementSibling;
-        display.textContent = formattedValue; // Update the display value
-        display.style.display = 'inline'; // Show the display value
 
-        // Update the supply on the server
         fetch(`/update_supply/${supplyName}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': '{{ csrf_token }}'
             },
-            body: JSON.stringify({ [fieldType]: newValue })
+            body: JSON.stringify({ [fieldType]: newValue.replace(/[$,]/g, '') })
         })
         .then(response => {
             if (!response.ok) {
@@ -359,10 +369,13 @@
         })
         .then(data => {
             console.log('Success:', data);
-            location.reload(); // Reload the page to reflect changes
+            location.reload();
         })
         .catch((error) => {
             console.error('Error:', error);
+        })
+        .finally(() => {
+            isSaving = false;
         });
     }
 
@@ -371,11 +384,12 @@
     }
 </script>
 {% endif %}
-
-
-
-
 {% endblock %}
+
+
+
+
+
 
 
 <!--Nguyen changed every other row being green to make it to where the rows were all grey.

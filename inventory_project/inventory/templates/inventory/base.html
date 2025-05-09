@@ -21,6 +21,11 @@
                 {% if user.is_authenticated %}
                     <span class="welcome-text">Welcome, {{ user.username }}</span>
                     <a href="{% url 'logout' %}" class="header-button">Logout</a>
+                        <a href="{% url 'admin_settings' %}">
+                                                    <img src="{% static 'icons/settinggear.svg' %}" alt="settign gear" class="logo">
+                        
+                        </a>
+                    
                 {% else %}
                     <a href="{% url 'login' %}" class="header-button">Login</a>
                 {% endif %}

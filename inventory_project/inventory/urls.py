@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib import admin
 
 urlpatterns = [
     path('', views.index, name='index'), 
@@ -13,6 +14,13 @@ urlpatterns = [
     path('export/', views.export_supplies, name='export_supplies'), 
     path('import/', views.import_supplies, name='import_supplies'),  
     path('update_supply/<str:supply_name>/', views.update_supply, name='update_supply'),
+    path('admin/', admin.site.urls),
+    path('custom-admin/', views.admin_settings, name='admin_settings'),
+    path('add_user/', views.add_user, name='add_user'),
+    path('delete_user/', views.delete_user, name='delete_user'),  
+    path('manage_groups/', views.manage_groups, name='manage_groups'),  
+    path('select_user/', views.select_user, name='select_user'), 
+    path('update_user/', views.update_user, name='update_user'),  
 
     
 ]
