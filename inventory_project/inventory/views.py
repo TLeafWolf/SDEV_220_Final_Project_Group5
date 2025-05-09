@@ -295,7 +295,7 @@ def update_user(request):
             user.groups.add(form.cleaned_data['group'])
 
             messages.success(request, 'User updated successfully.')
-            return redirect('select_user')
+            return redirect('index')
         else:
             print(form.errors)  
     else:
