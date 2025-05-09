@@ -80,15 +80,21 @@
 {% block content %}
 <div class="form-container">
     <div class="login-form">
-    <h1>Add User</h1>
+        <center>
+            <img src="{% static 'icons/BannerAuser.jpg' %}" alt="login-banner" class="login-image">
+        </center>
+        
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        <center>
         <button type="submit">Add</button>
     <a href="{% url 'index' %}">
         <button type="button" class="back-button">Back</button>
     </a>
+     </center>
     </form>
+   
     </div>
     </div>
 {% endblock %}
