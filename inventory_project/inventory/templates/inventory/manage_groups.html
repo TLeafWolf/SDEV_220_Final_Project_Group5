@@ -87,7 +87,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Create</button>
-    <a href="{% url 'admin_settings' %}">
+    <a href="{% url 'index' %}">
         <button type="button" class="back-button">Back</button>
     </a>
 </form>
