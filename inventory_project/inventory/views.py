@@ -286,18 +286,18 @@ def update_user(request):
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, instance=user)
         if form.is_valid():
-            user = form.save(commit=False)  # Save the user instance without committing to the database yet
+            user = form.save(commit=False)
             if form.cleaned_data['password']:
-                user.set_password(form.cleaned_data['password'])  # Set the new password if provided
-            user.save()  # Now save the user instance to the database
+                user.set_password(form.cleaned_data['password'])
+            user.save()
 
-            user.groups.clear()  # Clear existing groups
-            user.groups.add(form.cleaned_data['group'])  # Add the new group
+            user.groups.clear()
+            user.groups.add(form.cleaned_data['group'])
 
             messages.success(request, 'User updated successfully.')
-            return redirect('select_user')  # Redirect to the user selection page without re-logging in
+            return redirect('select_user')
         else:
-            print(form.errors)  # Print form errors for debugging
+            print(form.errors)  
     else:
         form = UserUpdateForm(instance=user)
 
